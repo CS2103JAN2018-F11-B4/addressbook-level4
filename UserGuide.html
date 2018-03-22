@@ -39,11 +39,12 @@
 <li><a href="#undoing-previous-command-code-undo-code">3.9. Undoing previous command : <code>undo</code></a></li>
 <li><a href="#redoing-the-previously-undone-command-code-redo-code">3.10. Redoing the previously undone command : <code>redo</code></a></li>
 <li><a href="#clearing-all-entries-code-clear-code">3.11. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.12. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.13. Saving the data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.14. Encrypting data files <code>[coming in v2.0]</code></a></li>
-<li><a href="#count-the-number-of-orders-a-customer-has-placed-in-the-past-code-coming-in-v2-0-code">3.15. Count the number of orders a customer has placed in the past <code>[coming in v2.0]</code></a></li>
-<li><a href="#menu-feature">3.16. Menu feature</a></li>
+<li><a href="#find-path-of-an-order-code-path-code">3.12. Find Path of an order : <code>path</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.13. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">3.14. Saving the data</a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.15. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#count-the-number-of-orders-a-customer-has-placed-in-the-past-code-coming-in-v2-0-code">3.16. Count the number of orders a customer has placed in the past <code>[coming in v2.0]</code></a></li>
+<li><a href="#menu-feature">3.17. Menu feature</a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -540,7 +541,59 @@ Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.12. Exiting the program : <code>exit</code></a></h3>
+<h3 id="find-path-of-an-order-code-path-code"><a class="link" href="#find-path-of-an-order-code-path-code">3.12. Find Path of an order : <code>path</code></a></h3>
+<div class="paragraph">
+<p>Shows path to the order&#8217;s address which is identified by the index number used in the last listing.<br>
+Alias: <code>p</code><br>
+Format: <code>path INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Shows path to the order’s address which is identified by the index number used in the last listing, using Google Map.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>path 2</code><br>
+Shows path to the 2nd order in the queue.</p>
+</li>
+<li>
+<p><code>find Betsy</code><br>
+<code>path 1</code><br>
+Shows path the 1st order in the results of the <code>find</code> command.</p>
+</li>
+<li>
+<p><code>l</code><br>
+<code>p 2</code><br>
+Shows path to the 2nd order in the queue.</p>
+</li>
+<li>
+<p><code>f Betsy</code><br>
+<code>p 1</code><br>
+Shows path to the 1st order in the results of the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.13. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Alias: <code>ext</code><br>
@@ -548,24 +601,24 @@ Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.13. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.14. Saving the data</a></h3>
 <div class="paragraph">
 <p>Customers' data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.14. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.15. Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p><em>{explain how the user can enable/disable data encryption}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="count-the-number-of-orders-a-customer-has-placed-in-the-past-code-coming-in-v2-0-code"><a class="link" href="#count-the-number-of-orders-a-customer-has-placed-in-the-past-code-coming-in-v2-0-code">3.15. Count the number of orders a customer has placed in the past <code>[coming in v2.0]</code></a></h3>
+<h3 id="count-the-number-of-orders-a-customer-has-placed-in-the-past-code-coming-in-v2-0-code"><a class="link" href="#count-the-number-of-orders-a-customer-has-placed-in-the-past-code-coming-in-v2-0-code">3.16. Count the number of orders a customer has placed in the past <code>[coming in v2.0]</code></a></h3>
 
 </div>
 <div class="sect2">
-<h3 id="menu-feature"><a class="link" href="#menu-feature">3.16. Menu feature</a></h3>
+<h3 id="menu-feature"><a class="link" href="#menu-feature">3.17. Menu feature</a></h3>
 
 </div>
 </div>
@@ -629,7 +682,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-03-22 17:22:14 UTC
+Last updated 2018-03-22 18:40:56 UTC
 </div>
 </div>
 </body>
