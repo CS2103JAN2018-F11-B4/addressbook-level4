@@ -45,13 +45,12 @@
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
-<li><a href="#proposed-data-encryption">3.2. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.3. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.4. Configuration</a></li>
-<li><a href="#customers-orders-count-feature">3.5. Customers’ Orders Count feature</a></li>
-<li><a href="#menu-feature">3.6. Menu feature</a></li>
-<li><a href="#priorityadd-feature">3.7. PriorityAdd feature</a></li>
-<li><a href="#path-feature">3.8. Path feature</a></li>
+<li><a href="#logging">3.2. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.3. Configuration</a></li>
+<li><a href="#customers-orders-count-feature">3.4. Customers’ Orders Count feature</a></li>
+<li><a href="#menu-feature">3.5. Menu feature</a></li>
+<li><a href="#priorityadd-feature">3.6. PriorityAdd feature</a></li>
+<li><a href="#path-feature">3.7. Path feature</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -883,20 +882,14 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.2. [Proposed] Data Encryption</a></h3>
-<div class="paragraph">
-<p><em>{Explain here how the data encryption feature will be implemented}</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.3. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.2. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.4, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.3, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -927,15 +920,15 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.4. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.3. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="customers-orders-count-feature"><a class="link" href="#customers-orders-count-feature">3.5. Customers’ Orders Count feature</a></h3>
+<h3 id="customers-orders-count-feature"><a class="link" href="#customers-orders-count-feature">3.4. Customers’ Orders Count feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.5.1. Current Implementation</a></h4>
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.4.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The counting of customers’ past orders can be stored in an additional local database. The data can be kept in a local XmlCustomerStats file.</p>
 </div>
@@ -947,51 +940,34 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/figure3.5.1a.png" alt="figure3.5.1a" width="800">
+<img src="images/3.5.1.a.png" alt="3.5.1.a" width="800">
 </div>
 </div>
 <div class="paragraph">
-<p>(To be updated)</p>
-</div>
-<div class="paragraph">
-<p>The diagram below shows how EventsCenter reacts to the event. It finds the customer in the database using the phoneNumber provided and add 1 to the corresponding numOfOrders value.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/figure3.5.1b.png" alt="figure3.5.1b" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>(To be updated)</p>
+<p>Then the EventsCenter reacts to the event. It finds the customer in the Customer Stats database using the phone number provided and add 1 to the corresponding numOfOrders value.</p>
 </div>
 <div class="paragraph">
 <p>To implement this feature, there are some modifications to the existing Model component and Storage component to support the additional data structure.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/figure3.5.1c.png" alt="figure3.5.1c" width="800">
+<img src="images/3.5.1.b.png" alt="3.5.1.b" width="800">
 </div>
 </div>
 <div class="paragraph">
-<p>(To be updated)</p>
-</div>
-<div class="paragraph">
-<p>As the diagram shown above, besides AddressBook and UserPref, now ModelManager has an additional CustomerStats class. It consists a Data field which has many Phone numbers and numOfOrders counters. Phone numbers and the numOfOrders counters are 1-1 mapped and each pair represent one customer that has placed at least one order before.</p>
+<p>As the diagram shown above, besides AddressBook and UserPref, now ModelManager has an additional CustomerStats class. It consists an ordersCount field which is a HashMap and has many Phone numbers and numOfOrders counters. Phone numbers and the numOfOrders counters are 1-1 mapped and each pair represent one customer that has placed at least one order before.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/figure3.5.1d.png" alt="figure3.5.1d" width="800">
+<img src="images/3.5.1.c.png" alt="3.5.1.c" width="800">
 </div>
-</div>
-<div class="paragraph">
-<p>(To be updated)</p>
 </div>
 <div class="paragraph">
 <p>In the Storage component, there is an additional CustomerStatsStorage interface and it is implemented by a XmlCustomerStatsStorage class to read and write the XML file on local machine.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.5.2. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.4.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-identification-of-customers"><a class="link" href="#aspect-identification-of-customers">Aspect: Identification of customers</a></h5>
 <div class="ulist">
@@ -1061,9 +1037,9 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="menu-feature"><a class="link" href="#menu-feature">3.6. Menu feature</a></h3>
+<h3 id="menu-feature"><a class="link" href="#menu-feature">3.5. Menu feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.6.1. Current Implementation</a></h4>
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.5.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>All the dishes can be created as an object and then be stored in an additional local database. The data can be kept in a local XmlMenuStorage file.</p>
 </div>
@@ -1122,7 +1098,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.6.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.5.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-restriction-for-ordering"><a class="link" href="#aspect-restriction-for-ordering">Aspect: Restriction for ordering</a></h5>
 <div class="ulist">
@@ -1225,9 +1201,9 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="priorityadd-feature"><a class="link" href="#priorityadd-feature">3.7. PriorityAdd feature</a></h3>
+<h3 id="priorityadd-feature"><a class="link" href="#priorityadd-feature">3.6. PriorityAdd feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.7.1. Current Implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.6.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Each order has a priority level. When adding an order, the user could use count feature on the current customer to see whether the customer has ordered before. If so, user could decide to assign a higher priority to this customer&#8217;s order.</p>
 </div>
@@ -1280,7 +1256,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.7.2. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.6.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-determination-of-priority-level"><a class="link" href="#aspect-determination-of-priority-level">Aspect: Determination of priority level</a></h5>
 <div class="ulist">
@@ -1350,9 +1326,9 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="path-feature"><a class="link" href="#path-feature">3.8. Path feature</a></h3>
+<h3 id="path-feature"><a class="link" href="#path-feature">3.7. Path feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.8.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.7.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Path command uses similar implementation as Select command.</p>
 </div>
@@ -3020,7 +2996,7 @@ address using google map.</p>
 <dd>
 <p>Personal information refers to the personal particulars of a customer, including his/her name, contact number, address and email address.</p>
 </dd>
-<dt class="hdlist1"><a id="meal-order"></a> : Meal order information</dt>
+<dt class="hdlist1"><a id="meal-order"></a> Meal order information</dt>
 <dd>
 <p>Meal order information refers to which dishes are ordered, what time it is ordered, what time it should be delivered, the total money of the dishes</p>
 </dd>
@@ -3186,7 +3162,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-12 13:28:14 UTC
+Last updated 2018-04-12 13:53:44 UTC
 </div>
 </div>
 </body>

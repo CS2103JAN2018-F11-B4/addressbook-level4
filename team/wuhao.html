@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>Wu Hao - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Wu Hao - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-delivery"><a class="link" href="#project-delivery">PROJECT: Delivery</a></h2>
+<div class="sectionbody">
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Delivery is targeted at restaurants, especially for the small-medium ones, which want to have a system to keep track customers’ orders and delivery.</p>
+</div>
+<div class="paragraph">
+<p>A restaurant can have hundreds of orders a day and it’s extremely troublesome for the restaurant stuff to manually write down all customer information (including their names, contact numbers, addresses, orders and expected time of delivery etc.) and keep track on it.</p>
+</div>
+<div class="paragraph">
+<p>Hence, they need a software to store all the information mentioned above in an organised manner.</p>
+</div>
+<div class="paragraph">
+<p>Delivery is for those who <strong>prefer to use a desktop app for managing orders</strong>. More importantly, Delivery is <strong>optimized for those who prefer to work with a Command Line Interface</strong> (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Delivery can manage the orders faster than traditional GUI apps. It is written in Java, and has about 10 kLoC.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement</strong>: added <strong>the ability to keep counting the number of customers' past orders and store in a local file</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: Every time an order is placed, the customer is identified by his/her phone number and the number of his/her past orders is counted.</p>
+</li>
+<li>
+<p>What can it do in the future: When a customer has accumulated 3/5/7/9 orders (the numbers can be set by users), the user will be notified and discount will be applied to the current order.</p>
+</li>
+<li>
+<p>Justification: This feature improves the product significantly because users (restaurant owners) will be able to identify loyal customers and give them discounts. This feature will also attract customers to the restaurant.</p>
+</li>
+<li>
+<p>Highlights: This enhancement affects existing "add" command and commands to be added in future. It requires extensions of Model, Storage and Events components and interaction with local files.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>: added an alias to each command.</p>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103JAN2018-F11-B4/main/blob/master/collated/functional/Wuhao-ooo.md">Functional code</a>] [<a href="https://github.com/CS2103JAN2018-F11-B4/main/blob/master/collated/test/Wuhao-ooo.md">Test code</a>]</p>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Managed releases <code>v1.4</code> - <code>v1.5rc</code> (2 releases) on GitHub</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Enhancements to existing features:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Added a light GUI color theme (Pull requests <a href="https://github.com/CS2103JAN2018-F11-B4/main/commit/5ff950492092a708d9526a1dc0feae9de01b09ef">#21</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Consistently updated contents of the User Guide and the Developer Guide</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com/CS2103JAN2018-T16-B1/main/issues/78">1</a>, <a href="https://github.com/CS2103JAN2018-T16-B1/main/issues/83">2</a>, <a href="https://github.com/CS2103JAN2018-T16-B1/main/issues/64">3</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Tools:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Deployed Travis and enabled auto-publishing to team repo</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="count-the-number-of-orders-a-customer-has-placed-in-the-past"><a class="link" href="#count-the-number-of-orders-a-customer-has-placed-in-the-past">Count the number of orders a customer has placed in the past</a></h3>
+<div class="paragraph">
+<p>The statistics of customers will be stored in the hard disk as an XML file.
+When a customer places an order, it accumulates to the number of his/her past orders.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="identify-loyal-customer-by-past-orders-count-and-give-discounts-code-coming-in-v2-0-code"><a class="link" href="#identify-loyal-customer-by-past-orders-count-and-give-discounts-code-coming-in-v2-0-code">Identify loyal customer by past orders count and give discounts <code>Coming in v2.0</code></a></h3>
+<div class="paragraph">
+<p>When a customer&#8217;s past orders count has been accumulated to 3/5/7/9 (numbers determined by restaurants).<br>
+Messages will be shown to remind restaurants to give the customer discount on the current order.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="customers-orders-count-feature"><a class="link" href="#customers-orders-count-feature">Customers’ Orders Count feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
+<div class="paragraph">
+<p>The counting of customers’ past orders can be stored in an additional local database. The data can be kept in a local XmlCustomerStats file.</p>
+</div>
+<div class="paragraph">
+<p>The data file consists of CustomerStats. It can be implemented using a HashMap since each customer is identified by his / her unique phoneNumber and has a counter numOfOrders keep counting the number of orders. So, the keys of the HashMap are the phone number Strings and the values are the order count integers corresponding to the phone number String.</p>
+</div>
+<div class="paragraph">
+<p>As you can see from the diagram below, these are the interactions among the components during an “add” command. After the Model component raises an AddressBookChangedEvent to update the content of the AddressBook, it raises another CustomerStatsChangedEvent to update the current customer’s order count.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/3.5.1.a.png" alt="3.5.1.a" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Then the EventsCenter reacts to the event. It finds the customer in the Customer Stats database using the phone number provided and add 1 to the corresponding numOfOrders value.</p>
+</div>
+<div class="paragraph">
+<p>To implement this feature, there are some modifications to the existing Model component and Storage component to support the additional data structure.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/3.5.1.b.png" alt="3.5.1.b" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>As the diagram shown above, besides AddressBook and UserPref, now ModelManager has an additional CustomerStats class. It consists an ordersCount field which is a HashMap and has many Phone numbers and numOfOrders counters. Phone numbers and the numOfOrders counters are 1-1 mapped and each pair represent one customer that has placed at least one order before.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/3.5.1.c.png" alt="3.5.1.c" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>In the Storage component, there is an additional CustomerStatsStorage interface and it is implemented by a XmlCustomerStatsStorage class to read and write the XML file on local machine.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-identification-of-customers"><a class="link" href="#aspect-identification-of-customers">Aspect: Identification of customers</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Identify a customer by his/her phone number.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+<li>
+<p>Cons: Customers will lose their past orders count if they change phone number.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Identify customers using individual accounts.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Customers can still have the counting kept going on even if they change phone numbers, as long as the account does not change.</p>
+</li>
+<li>
+<p>Cons: It requires additional data structures and a server system. Too hard to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-data-structure-to-store-data-for-orders-count"><a class="link" href="#aspect-data-structure-to-store-data-for-orders-count">Aspect: Data structure to store data for orders count</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Use a HashMap to store the phoneNumber-numOfOrders pair.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Efficient to search for a given key and update its value.</p>
+</li>
+<li>
+<p>Cons: Information not fully encapsulated.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Use an ArrayList of Customer objects and each Customer object contains a numOfOrders attribute.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Better encapsulation of information</p>
+</li>
+<li>
+<p>Cons: It takes up more space and it requires a much longer time to find a customer and update the counter.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2018-04-12 13:53:44 UTC
+</div>
+</div>
+</body>
+</html>
