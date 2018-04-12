@@ -1104,20 +1104,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Allow user to input the indexes for dishes and drinks</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to implement.</p>
-</li>
-<li>
-<p>Cons: User needs a index reference. Work needs to be done while maintaining the index reference.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Allow user to input the names for dishes and drinks</p>
+<p><strong>Alternative 1 (current choice):</strong> Allow user to input the names for dishes and drinks</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1125,6 +1112,19 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </li>
 <li>
 <p>Cons: It could be time-consuming for typing all the names. There might be typos which make dishes can not be recognised.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Allow user to input the indexes for dishes and drinks</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+<li>
+<p>Cons: User needs a index reference. Work needs to be done while maintaining the index reference.</p>
 </li>
 </ul>
 </div>
@@ -1137,7 +1137,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Use lazy deletion.</p>
+<p><strong>Alternative 1 (proposed):</strong> Use lazy deletion.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1170,14 +1170,14 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Use a HashMap. Index will be the key, Dishes will be the value.</p>
+<p><strong>Alternative 1 (current choice):</strong> Use a HashMap. String will be the key, Dishes will be the value.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Efficient to search for a given key and update its value.</p>
+<p>Pros: Efficient to search for a given key and decide whether the dish is available.</p>
 </li>
 <li>
-<p>Cons: A index reference need to be generated beforehand.</p>
+<p>Cons: User may key in wrongly for names of dishes.</p>
 </li>
 </ul>
 </div>
@@ -3162,7 +3162,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-12 16:17:55 UTC
+Last updated 2018-04-12 16:28:00 UTC
 </div>
 </div>
 </body>

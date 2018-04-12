@@ -5,14 +5,14 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>Wu Hao - Project Portfolio</title>
+<title>Zhang Zequn - Project Portfolio</title>
 <link rel="stylesheet" href="../stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>Wu Hao - Project Portfolio</h1>
+<h1>Zhang Zequn - Project Portfolio</h1>
 </div>
 <div id="content">
 <div class="sect1">
@@ -25,16 +25,7 @@
 <h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Delivery is targeted at restaurants, especially for the small-medium ones, which want to have a system to keep track customers’ orders and delivery.</p>
-</div>
-<div class="paragraph">
-<p>A restaurant can have hundreds of orders a day and it’s extremely troublesome for the restaurant stuff to manually write down all customer information (including their names, contact numbers, addresses, orders and expected time of delivery etc.) and keep track on it.</p>
-</div>
-<div class="paragraph">
-<p>Hence, they need a software to store all the information mentioned above in an organised manner.</p>
-</div>
-<div class="paragraph">
-<p>Delivery is for those who <strong>prefer to use a desktop app for managing orders</strong>. More importantly, Delivery is <strong>optimized for those who prefer to work with a Command Line Interface</strong> (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Delivery can manage the orders faster than traditional GUI apps. It is written in Java, and has about 10 kLoC.</p>
+<p>Delivery is a desktop application designed for restaurants who want to maintain their own system to keep track customers’ orders. It is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). It is written in Java, and has about 10 kLoC.</p>
 </div>
 </div>
 </div>
@@ -44,29 +35,46 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement</strong>: added <strong>the ability to keep counting the number of customers' past orders and store in a local file</strong></p>
+<p><strong>Major enhancement</strong>: added <strong>the order feature</strong> for AddCommand and <strong>checked whether the order is available</strong></p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: Every time an order is placed, the customer is identified by his/her phone number and the number of his/her past orders is counted.</p>
+<p>What it does: allows the user to key in the order made by customers, and check whether the ordered dish is available in the restaurants' menu.</p>
 </li>
 <li>
-<p>What can it do in the future: When a customer has accumulated 3/5/7/9 orders (the numbers can be set by users), the user will be notified and discount will be applied to the current order.</p>
+<p>Justification: This feature enables the main functionality of the Delivery app, because the app is serving the purpose to keep track customers' orders. By checking whether the ordered food is available in the menu, the user can decide whether customers can order the particular dish.</p>
 </li>
 <li>
-<p>Justification: This feature improves the product significantly because users (restaurant owners) will be able to identify loyal customers and give them discounts. This feature will also attract customers to the restaurant.</p>
-</li>
-<li>
-<p>Highlights: This enhancement affects existing "add" command and commands to be added in future. It requires extensions of Model, Storage and Events components and interaction with local files.</p>
+<p>Highlights: Adding the order feature requires updates for AddCommand and EditCommand as well as all the relevant methods and data structure involved. Enabling the checking process needs to main a local menu storage for all the dishes available. Maintaining the dishes inside the menu by commands will be available in upcoming version 2.0.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Minor enhancement</strong>: added an alias to each command.</p>
+<p><strong>Minor enhancement</strong>: Add colours to different tags.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Justification: Same tags will be assigned the same colours which makes the differentiation of tags clearer.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103JAN2018-F11-B4/main/blob/master/collated/functional/Wuhao-ooo.md">Functional code</a>] [<a href="https://github.com/CS2103JAN2018-F11-B4/main/blob/master/collated/test/Wuhao-ooo.md">Test code</a>]</p>
+<p><strong>Minor enhancement</strong>: Add Optional Halal/Non-halal and Vegetarian/Non-vegetarian features.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: allows the user to key in the optional Halal/Non-halal and Vegetarian/Non-vegetarian features. If the user did not key in values for these two features, the default value is Non-halal and Non-vegetarian.</p>
+</li>
+<li>
+<p>Justification: This allows the restaurants to have a clear view about whether the customer is halal and vegetarian, hence can better prepare for the food.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103JAN2018-F11-B4/main/blob/master/collated/functional/ZacZequn.md">Functional code</a>] [<a href="https://github.com/CS2103JAN2018-F11-B4/main/blob/master/collated/test/ZacZequn.md">Test code</a>]</p>
 </li>
 <li>
 <p><strong>Other contributions</strong>:</p>
@@ -77,7 +85,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Managed releases <code>v1.4</code> - <code>v1.5rc</code> (2 releases) on GitHub</p>
+<p>Managed releases <code>v1.3</code> (1 releases) on GitHub</p>
 </li>
 </ul>
 </div>
@@ -87,7 +95,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Added a light GUI color theme (Pull requests <a href="https://github.com/CS2103JAN2018-F11-B4/main/commit/5ff950492092a708d9526a1dc0feae9de01b09ef">#21</a>)</p>
+<p>Add colours to different tags (Pull requests <a href="https://github.com/CS2103JAN2018-F11-B4/main/commit/69a6fb5ceccc27452f8f3c698aa2671fb9a61c02">#4</a>)</p>
+</li>
+<li>
+<p>Wrote additional tests for added features e.g. Halal and Vegetarian features (Pull requests <a href="https://github.com/CS2103JAN2018-F11-B4/main/commit/03012e1ab2bcd39acf06190b2ff3f6b4a7267863">#29</a>)</p>
 </li>
 </ul>
 </div>
@@ -97,7 +108,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Consistently updated contents of the User Guide and the Developer Guide</p>
+<p>Update relevant parts for User Guide and Developer Guide</p>
 </li>
 </ul>
 </div>
@@ -107,17 +118,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com/CS2103JAN2018-T16-B1/main/issues/78">1</a>, <a href="https://github.com/CS2103JAN2018-T16-B1/main/issues/83">2</a>, <a href="https://github.com/CS2103JAN2018-T16-B1/main/issues/64">3</a>)</p>
-</li>
-</ul>
-</div>
+<p>Contributed to forum discussions (examples:  <a href="https://nus-cs2103-ay1718s2.slack.com/archives/D9M8Y20Q2/p1520616066000038">1</a>)</p>
 </li>
 <li>
-<p>Tools:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Deployed Travis and enabled auto-publishing to team repo</p>
+<p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com/CS2103JAN2018-T16-B1/main/issues/87">1</a>, <a href="https://github.com/CS2103JAN2018-T16-B1/main/issues/80">2</a>, <a href="https://github.com/CS2103JAN2018-T16-B1/main/issues/73">3</a>)<em>{These issues were created by me, but it shows that my team mate created them on gitHub. I think this could because that I was re-assigned to this group during the mock PE.}</em></p>
 </li>
 </ul>
 </div>
