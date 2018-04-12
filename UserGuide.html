@@ -28,23 +28,26 @@
 <li><a href="#quick-start">2. Quick Start</a></li>
 <li><a href="#Features">3. Features</a>
 <ul class="sectlevel2">
-<li><a href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></li>
-<li><a href="#adding-an-order-code-add-code">3.2. Adding an order: <code>add</code></a></li>
-<li><a href="#listing-all-orders-code-list-code">3.3. Listing all orders : <code>list</code></a></li>
-<li><a href="#editing-an-order-code-edit-code">3.4. Editing an order : <code>edit</code></a></li>
-<li><a href="#locating-orders-by-name-code-find-code">3.5. Locating orders by name: <code>find</code></a></li>
-<li><a href="#deleting-an-order-code-delete-code">3.6. Deleting an order : <code>delete</code></a></li>
-<li><a href="#selecting-an-order-code-select-code">3.7. Selecting an order : <code>select</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">3.8. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.9. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.10. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.11. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#find-path-of-an-order-code-path-code">3.12. Find Path of an order : <code>path</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.13. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.14. Saving the data</a></li>
-<li><a href="#count-the-number-of-orders-a-customer-has-placed-in-the-past">3.15. Count the number of orders a customer has placed in the past</a></li>
-<li><a href="#identify-loyal-customer-by-past-orders-count-and-give-discounts-code-coming-in-v2-0-code">3.16. Identify loyal customer by past orders count and give discounts <code>Coming in v2.0</code></a></li>
-<li><a href="#menu-feature">3.17. Menu feature</a></li>
+<li><a href="#viewing-help-code-help-code">3.1. Viewing help: <code>help</code></a></li>
+<li><a href="#adding-an-order-order-book-code-add-code">3.2. Adding an order (order book): <code>add</code></a></li>
+<li><a href="#listing-all-orders-order-book-code-list-code">3.3. Listing all orders (order book): <code>list</code></a></li>
+<li><a href="#editing-an-order-order-book-code-edit-code">3.4. Editing an order (order book): <code>edit</code></a></li>
+<li><a href="#deleting-an-order-order-book-code-delete-code">3.5. Deleting an order (order book): <code>delete</code></a></li>
+<li><a href="#adding-an-order-order-queue-code-addorder-code">3.6. Adding an order (order queue): <code>addOrder</code></a></li>
+<li><a href="#completing-an-or-multiple-order-s-order-queue-code-completeorder-code">3.7. Completing an or multiple order(s) (order queue): <code>completeOrder</code></a></li>
+<li><a href="#deleting-an-order-order-queue-code-deleteorder-code">3.8. Deleting an order (order queue): <code>deleteOrder</code></a></li>
+<li><a href="#locating-orders-by-name-order-book-code-find-code">3.9. Locating orders by name (order book): <code>find</code></a></li>
+<li><a href="#selecting-an-order-order-book-code-select-code">3.10. Selecting an order (order book): <code>select</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">3.12. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.13. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#clearing-all-entries-order-book-code-clear-code">3.14. Clearing all entries (order book): <code>clear</code></a></li>
+<li><a href="#find-path-of-an-order-order-book-code-path-code">3.15. Find Path of an order (order book): <code>path</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.16. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">3.17. Saving the data</a></li>
+<li><a href="#count-the-number-of-orders-a-customer-has-placed-in-the-past">3.18. Count the number of orders a customer has placed in the past</a></li>
+<li><a href="#identify-loyal-customer-by-past-orders-count-and-give-discounts-code-coming-in-v2-0-code">3.19. Identify loyal customer by past orders count and give discounts <code>Coming in v2.0</code></a></li>
+<li><a href="#menu-feature">3.20. Menu feature</a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -165,7 +168,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </div>
 </div>
 <div class="sect2">
-<h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></h3>
+<h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.1. Viewing help: <code>help</code></a></h3>
 <div class="paragraph">
 <p>If you want to find out all the features, or would like to know how to do a certain command, you can click on the help menu button. You can also enter the command help to access the help window.<br>
 Alias: <code>h</code><br>
@@ -173,11 +176,22 @@ Format: <code>help</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-an-order-code-add-code"><a class="link" href="#adding-an-order-code-add-code">3.2. Adding an order: <code>add</code></a></h3>
+<h3 id="adding-an-order-order-book-code-add-code"><a class="link" href="#adding-an-order-order-book-code-add-code">3.2. Adding an order (order book): <code>add</code></a></h3>
 <div class="paragraph">
-<p>Adds an order to the queue<br>
+<p>Adds an order to the order book, which keeps track all the orders received+
 Alias: <code>a</code><br>
 Format: <code>add n/NAME p/PHONE_NUMBER a/ADDRESS o/FOOD_ORDER [h/HALAL] [v/VEGETARIAN] [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Order book is the left dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -242,17 +256,28 @@ Coffee
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-orders-code-list-code"><a class="link" href="#listing-all-orders-code-list-code">3.3. Listing all orders : <code>list</code></a></h3>
+<h3 id="listing-all-orders-order-book-code-list-code"><a class="link" href="#listing-all-orders-order-book-code-list-code">3.3. Listing all orders (order book): <code>list</code></a></h3>
 <div class="paragraph">
-<p>Shows a list of all orders in the queue.<br>
+<p>Shows a list of all orders in the order book.<br>
 Alias: <code>l</code><br>
 Format: <code>list</code></p>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Order book is the left dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="editing-an-order-code-edit-code"><a class="link" href="#editing-an-order-code-edit-code">3.4. Editing an order : <code>edit</code></a></h3>
+<h3 id="editing-an-order-order-book-code-edit-code"><a class="link" href="#editing-an-order-order-book-code-edit-code">3.4. Editing an order (order book): <code>edit</code></a></h3>
 <div class="paragraph">
-<p>Edits an existing order in the queue.<br>
+<p>Edits an existing order in the order book.<br>
 Alias: <code>e</code><br>
 Format: <code>edit INDEX [n/NAME] [p/PHONE] [a/ADDRESS] [t/FOOD_ORDER] [h/HALAL] [v/VEGETARIAN] [t/TAG]&#8230;&#8203;</code></p>
 </div>
@@ -267,6 +292,17 @@ First letter for every word of FOOD_ORDER must be capitalised
 </td>
 </tr>
 </table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Order book is the left dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -316,7 +352,231 @@ Edits the name of the customer from 2nd order to be <code>Betsy Crower</code> an
 </div>
 </div>
 <div class="sect2">
-<h3 id="locating-orders-by-name-code-find-code"><a class="link" href="#locating-orders-by-name-code-find-code">3.5. Locating orders by name: <code>find</code></a></h3>
+<h3 id="deleting-an-order-order-book-code-delete-code"><a class="link" href="#deleting-an-order-order-book-code-delete-code">3.5. Deleting an order (order book): <code>delete</code></a></h3>
+<div class="paragraph">
+<p>Deletes the specified order from the order book.<br>
+Alias: <code>d</code><br>
+Format: <code>delete INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Order book is the left dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the order in the order book at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>delete 2</code><br>
+Deletes the 2nd order in the order book.</p>
+</li>
+<li>
+<p><code>find Betsy</code><br>
+<code>delete 1</code><br>
+Deletes the 1st order in the results of the <code>find</code> command.</p>
+</li>
+<li>
+<p><code>l</code><br>
+<code>d 2</code><br>
+Deletes the 2nd order in the order book.</p>
+</li>
+<li>
+<p><code>f Betsy</code><br>
+<code>d 1</code><br>
+Deletes the 1st order in the results of the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-an-order-order-queue-code-addorder-code"><a class="link" href="#adding-an-order-order-queue-code-addorder-code">3.6. Adding an order (order queue): <code>addOrder</code></a></h3>
+<div class="paragraph">
+<p>Adds an order from order book to the order queue in order for processing
+Format: `addOrder o/FOOD_ORDER a/ADDRESS $/PRICE dis/DISTANCE c/PAST_ORDER_COUNT des/DESCRIPTION</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Order queue is the right dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>All fields are required, including description. If no description needed, leave it empty.</p>
+</li>
+<li>
+<p>Price is in terms of dollar(only positive interger), Distance is terms of kilometer(only positive interger).</p>
+</li>
+<li>
+<p>Display of an order in the order queue is simplified, showing only food, address and description given.</p>
+</li>
+<li>
+<p>The order queue is a priority queue, priority is determined by input price, distance and past order count.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Distance can be found using Path command.
+Past order count can be found using count command(in v2.0).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add o/Chicken rice a/John street, block 123, #01-01 $/3 dis/5 c/0 des/Chili sauce required</code></p>
+</li>
+<li>
+<p><code>add a/Newgate Prison o/Chicken chop $/5 dis/5 c/0 des/with noodles</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="completing-an-or-multiple-order-s-order-queue-code-completeorder-code"><a class="link" href="#completing-an-or-multiple-order-s-order-queue-code-completeorder-code">3.7. Completing an or multiple order(s) (order queue): <code>completeOrder</code></a></h3>
+<div class="paragraph">
+<p>Completes first n orders from the order queue, n is the NUMBER inputted.<br>
+Format: <code>completeOrder NUMBER</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Order queue is the right dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Completes first n orders.</p>
+</li>
+<li>
+<p>The number cannot be more than the total orders in order queue.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>completeOrder 1</code><br>
+Deletes the first order in the order queue.</p>
+</li>
+<li>
+<p><code>completeOrder 5</code><br>
+Deletes the first five orders in the order queue,it there are at least five orders there.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-an-order-order-queue-code-deleteorder-code"><a class="link" href="#deleting-an-order-order-queue-code-deleteorder-code">3.8. Deleting an order (order queue): <code>deleteOrder</code></a></h3>
+<div class="paragraph">
+<p>Deletes the specified order from the order book.<br>
+Format: <code>deleteOrder INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Order book is the left dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the order in the order queue at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete 1</code><br>
+Deletes the 1st order in the order queue.</p>
+</li>
+<li>
+<p><code>delete 3</code><br>
+Deletes the 3rd order in the order queue.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="locating-orders-by-name-order-book-code-find-code"><a class="link" href="#locating-orders-by-name-order-book-code-find-code">3.9. Locating orders by name (order book): <code>find</code></a></h3>
 <div class="paragraph">
 <p>Finds orders with their customer names containing any of the given keywords.<br>
 Alias: <code>f</code><br>
@@ -370,59 +630,7 @@ Returns any person having names <code>Betsy</code>, <code>Tim</code>, or <code>J
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-an-order-code-delete-code"><a class="link" href="#deleting-an-order-code-delete-code">3.6. Deleting an order : <code>delete</code></a></h3>
-<div class="paragraph">
-<p>Deletes the specified order from the queue.<br>
-Alias: <code>d</code><br>
-Format: <code>delete INDEX</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Deletes the order at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most recent listing.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-<code>delete 2</code><br>
-Deletes the 2nd order in the queue.</p>
-</li>
-<li>
-<p><code>find Betsy</code><br>
-<code>delete 1</code><br>
-Deletes the 1st order in the results of the <code>find</code> command.</p>
-</li>
-<li>
-<p><code>l</code><br>
-<code>d 2</code><br>
-Deletes the 2nd order in the queue.</p>
-</li>
-<li>
-<p><code>f Betsy</code><br>
-<code>d 1</code><br>
-Deletes the 1st order in the results of the <code>find</code> command.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="selecting-an-order-code-select-code"><a class="link" href="#selecting-an-order-code-select-code">3.7. Selecting an order : <code>select</code></a></h3>
+<h3 id="selecting-an-order-order-book-code-select-code"><a class="link" href="#selecting-an-order-order-book-code-select-code">3.10. Selecting an order (order book): <code>select</code></a></h3>
 <div class="paragraph">
 <p>Selects the order identified by the index number used in the last listing.<br>
 Alias: <code>s</code><br>
@@ -453,7 +661,7 @@ Format: <code>select INDEX</code></p>
 <li>
 <p><code>list</code><br>
 <code>select 2</code><br>
-Selects the 2nd order in the queue.</p>
+Selects the 2nd order in the order book.</p>
 </li>
 <li>
 <p><code>find Betsy</code><br>
@@ -463,7 +671,7 @@ Selects the 1st order in the results of the <code>find</code> command.</p>
 <li>
 <p><code>l</code><br>
 <code>s 2</code><br>
-Selects the 2nd order in the queue.</p>
+Selects the 2nd order in the order book.</p>
 </li>
 <li>
 <p><code>f Betsy</code><br>
@@ -474,7 +682,7 @@ Selects the 1st order in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.8. Listing entered commands : <code>history</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Alias: <code>hist</code><br>
@@ -496,7 +704,7 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.9. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.12. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores the queue to the state before the previous <em>undoable</em> command was executed.<br>
 Alias: <code>ud</code><br>
@@ -542,7 +750,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.10. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.13. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Alias: <code>rd</code><br>
@@ -575,15 +783,15 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.11. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-order-book-code-clear-code"><a class="link" href="#clearing-all-entries-order-book-code-clear-code">3.14. Clearing all entries (order book): <code>clear</code></a></h3>
 <div class="paragraph">
-<p>Clears all orders from the queue.<br>
+<p>Clears all orders from the order book.<br>
 Alias: <code>c</code><br>
 Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-path-of-an-order-code-path-code"><a class="link" href="#find-path-of-an-order-code-path-code">3.12. Find Path of an order : <code>path</code></a></h3>
+<h3 id="find-path-of-an-order-order-book-code-path-code"><a class="link" href="#find-path-of-an-order-order-book-code-path-code">3.15. Find Path of an order (order book): <code>path</code></a></h3>
 <div class="paragraph">
 <p>Shows path to the order&#8217;s address which is identified by the index number used in the last listing.<br>
 Alias: <code>p</code><br>
@@ -635,7 +843,7 @@ Shows path to the 1st order in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.13. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.16. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Alias: <code>ext</code><br>
@@ -643,28 +851,28 @@ Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.14. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.17. Saving the data</a></h3>
 <div class="paragraph">
 <p>Customers' data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="count-the-number-of-orders-a-customer-has-placed-in-the-past"><a class="link" href="#count-the-number-of-orders-a-customer-has-placed-in-the-past">3.15. Count the number of orders a customer has placed in the past</a></h3>
+<h3 id="count-the-number-of-orders-a-customer-has-placed-in-the-past"><a class="link" href="#count-the-number-of-orders-a-customer-has-placed-in-the-past">3.18. Count the number of orders a customer has placed in the past</a></h3>
 <div class="paragraph">
 <p>The statistics of customers will be stored in the hard disk as an XML file.
 When a customer places an order, it accumulates to the number of his/her past orders.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="identify-loyal-customer-by-past-orders-count-and-give-discounts-code-coming-in-v2-0-code"><a class="link" href="#identify-loyal-customer-by-past-orders-count-and-give-discounts-code-coming-in-v2-0-code">3.16. Identify loyal customer by past orders count and give discounts <code>Coming in v2.0</code></a></h3>
+<h3 id="identify-loyal-customer-by-past-orders-count-and-give-discounts-code-coming-in-v2-0-code"><a class="link" href="#identify-loyal-customer-by-past-orders-count-and-give-discounts-code-coming-in-v2-0-code">3.19. Identify loyal customer by past orders count and give discounts <code>Coming in v2.0</code></a></h3>
 <div class="paragraph">
 <p>When a customer&#8217;s past orders count has been accumulated to 3/5/7/9 (numbers determined by restaurants).<br>
 Messages will be shown to remind restaurants to give the customer discount on the current order.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="menu-feature"><a class="link" href="#menu-feature">3.17. Menu feature</a></h3>
+<h3 id="menu-feature"><a class="link" href="#menu-feature">3.20. Menu feature</a></h3>
 
 </div>
 </div>
@@ -728,7 +936,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-12 17:24:42 UTC
+Last updated 2018-04-12 18:46:16 UTC
 </div>
 </div>
 </body>

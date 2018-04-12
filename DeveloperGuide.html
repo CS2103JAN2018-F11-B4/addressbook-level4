@@ -49,7 +49,7 @@
 <li><a href="#Implementation-Configuration">3.3. Configuration</a></li>
 <li><a href="#customers-orders-count-feature">3.4. Customers’ Orders Count feature</a></li>
 <li><a href="#menu-feature">3.5. Menu feature</a></li>
-<li><a href="#priorityadd-feature">3.6. PriorityAdd feature</a></li>
+<li><a href="#priorityqueue-feature">3.6. PriorityQueue feature</a></li>
 <li><a href="#path-feature">3.7. Path feature</a></li>
 </ul>
 </li>
@@ -1201,54 +1201,28 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="priorityadd-feature"><a class="link" href="#priorityadd-feature">3.6. PriorityAdd feature</a></h3>
+<h3 id="priorityqueue-feature"><a class="link" href="#priorityqueue-feature">3.6. PriorityQueue feature</a></h3>
 <div class="sect3">
 <h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.6.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>Each order has a priority level. When adding an order, the user could use count feature on the current customer to see whether the customer has ordered before. If so, user could decide to assign a higher priority to this customer&#8217;s order.</p>
+<p>Each order has a priority level. When adding an order to the order queue, the priority of the order is
+determined by three things, total price of the order, distance to the address and order&#8217;s customer&#8217;s past order count.</p>
 </div>
 <div class="paragraph">
-<p>User might look at other things and decide to give priority to the current order.</p>
+<p>There is no need for user to manually give priority to the order.</p>
 </div>
 <div class="paragraph">
-<p>Orders are added to a priority queue, implemented using Java PriorityQueue class. Orders are queued inside the queue based on their priority level.</p>
+<p>Orders are added to a priority queue, implemented using Java ArrayList class with comparator. Orders are queued inside the queue based on their priority level.</p>
 </div>
 <div class="paragraph">
-<p>As you can see from the diagram below, these are the interactions among the components during an “add” command. The Model component raises an AddressBookChangedEvent to update the content of the AddressBook.</p>
+<p>Current equation to calculate priority is that priority(integer) = 10 * price - 25 * distance + 5 * count.</p>
+</div>
+<div class="paragraph">
+<p>As you can see from the diagram below, these are the interactions among the components during an “addOrder” command. The Model component raises an AddressBookChangedEvent to update the content of the AddressBook.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/figure3.5.1a.png" alt="figure3.5.1a" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>(To be updated)</p>
-</div>
-<div class="paragraph">
-<p>The diagram below shows how EventsCenter reacts to the event.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/figure3.5.1b.png" alt="figure3.5.1b" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>(To be updated)</p>
-</div>
-<div class="paragraph">
-<p>To implement this feature, there are some modifications to the existing Model component and Storage component to support the additional data structure.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/figure3.5.1c.png" alt="figure3.5.1c" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>(To be updated)</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/figure3.5.1d.png" alt="figure3.5.1d" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -1262,7 +1236,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Determined based on the customers' past order count.</p>
+<p><strong>Alternative 1:</strong> Determined based on the customers' past order count.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1275,7 +1249,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Determined based different things such as past order count, distance, price of the order.</p>
+<p><strong>Alternative 2(current choice)::</strong> Determined based different things such as past order count, distance, price of the order.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1295,27 +1269,28 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Use Java PriorityQueue</p>
+<p><strong>Alternative 1:</strong> Use Java PriorityQueue</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Efficient to add an order.</p>
+<p>Pros: Efficient to add an order, complexity is lower than alternative 2.</p>
 </li>
 <li>
-<p>Cons: Might make edit order command difficult due to abstraction of queue.</p>
+<p>Cons: Difficult to implement.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Use an ArrayList of Order objects and manually maintain their order.</p>
+<p><strong>Alternative 2:</strong> Use an ArrayList of Order objects and comparable interface.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Easy to access and edit orders.</p>
+<p>Pros: Easy to implement, quick to access and edit orders.</p>
 </li>
 <li>
-<p>Cons: It defeats the purposes of having a queue and add command might be difficult as we need to manually find correct position of insertion.</p>
+<p>Cons: When number of orders gets larger, the time taken would be slower as internally the priority queue is maintained
+by sorting (MergeSort).</p>
 </li>
 </ul>
 </div>
@@ -3162,7 +3137,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-12 17:24:42 UTC
+Last updated 2018-04-12 18:46:16 UTC
 </div>
 </div>
 </body>

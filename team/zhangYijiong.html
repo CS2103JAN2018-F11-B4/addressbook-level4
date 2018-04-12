@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>Zhang Yijiong - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Zhang Yijiong - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-delivery"><a class="link" href="#project-delivery">PROJECT: Delivery</a></h2>
+<div class="sectionbody">
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Delivery is targeted at restaurants, especially for the small-medium ones, which want to have a system to keep track customers’ orders and delivery.</p>
+</div>
+<div class="paragraph">
+<p>A restaurant can have hundreds of orders a day and it’s extremely troublesome for the restaurant stuff to manually write down all customer information (including their names, contact numbers, addresses, orders and expected time of delivery etc.) and keep track on it.</p>
+</div>
+<div class="paragraph">
+<p>Hence, they need a software to store all the information mentioned above in an organised manner.</p>
+</div>
+<div class="paragraph">
+<p>Delivery is for those who <strong>prefer to use a desktop app for managing orders</strong>. More importantly, Delivery is <strong>optimized for those who prefer to work with a Command Line Interface</strong> (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Delivery can manage the orders faster than traditional GUI apps. It is written in Java, and has about 10 kLoC.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement</strong>: added <strong>an separate order priority queue to process order</strong> including addOrder, deleteOrder, and completeOrder commands</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: User is able to input orders from order book into the order queue, for them to decide which order needs to be processed first.</p>
+</li>
+<li>
+<p>What can it do in the future: When an order is completed from the queue, the total price of the order could automatically
+be added into the daily revenue, for additional accounting purposes.</p>
+</li>
+<li>
+<p>Justification: This feature improves the product significantly, as firstly it separates the recording and processing of orders.
+When an order is delivered, it is removed from the order queue, but still remains in order book, in case there is any future usage. Secondly, users (restaurant owners) need not to worry
+about which order should they do first, as the priority of each order is determined internally.</p>
+</li>
+<li>
+<p>Highlights: This enhancement does not affect commands such as "add", "delete" or others on the order book.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>: added an path feature.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What is does: Show the path from user(restaurants owners)'s address to the customer&#8217;s address. As a result,
+user can roughly estimate how long does it take to deliver the food.</p>
+</li>
+<li>
+<p>Justification: The ability to estimate the delivery timing is crucial as the user would be able to determine whether to take the order.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103JAN2018-F11-B4/main/blob/master/collated/functional/ZhangYijiong.md">Functional code</a>] [<a href="https://github.com/CS2103JAN2018-F11-B4/main/blob/master/collated/test/ZhangYijiong.md">Test code</a>]</p>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Enhancements to existing features:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Modify select command to show the address of the order on Google Map (Pull requests <a href="https://github.com/CS2103JAN2018-F11-B4/main/commit/eed0e01164840261c1dff085b4205956e77913a8">#30</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated contents of the User Guide and the Developer Guide</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Reported bugs and suggestions for other teams in the class (examples: <a href="https://github.com/CS2103JAN2018-F09-B2/main/issues/130">1</a> <a href="https://github.com/CS2103JAN2018-F09-B2/main/issues/128">2</a> <a href="https://github.com/CS2103JAN2018-F09-B2/main/issues/123">3</a> )</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Tools:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Deployed Travis to own repo</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="adding-an-order-order-queue-code-addorder-code"><a class="link" href="#adding-an-order-order-queue-code-addorder-code">Adding an order (order queue): <code>addOrder</code></a></h3>
+<div class="paragraph">
+<p>Adds an order from order book to the order queue in order for processing
+Format: `addOrder o/FOOD_ORDER a/ADDRESS $/PRICE dis/DISTANCE c/PAST_ORDER_COUNT des/DESCRIPTION</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Order queue is the right dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>All fields are required, including description. If no description needed, leave it empty.</p>
+</li>
+<li>
+<p>Price is in terms of dollar(only positive interger), Distance is terms of kilometer(only positive interger).</p>
+</li>
+<li>
+<p>Display of an order in the order queue is simplified, showing only food, address and description given.</p>
+</li>
+<li>
+<p>The order queue is a priority queue, priority is determined by input price, distance and past order count.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Distance can be found using Path command.
+Past order count can be found using count command(in v2.0).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add o/Chicken rice a/John street, block 123, #01-01 $/3 dis/5 c/0 des/Chili sauce required</code></p>
+</li>
+<li>
+<p><code>add a/Newgate Prison o/Chicken chop $/5 dis/5 c/0 des/with noodles</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="completing-an-or-multiple-order-s-order-queue-code-completeorder-code"><a class="link" href="#completing-an-or-multiple-order-s-order-queue-code-completeorder-code">Completing an or multiple order(s) (order queue): <code>completeOrder</code></a></h3>
+<div class="paragraph">
+<p>Completes first n orders from the order queue, n is the NUMBER inputted.<br>
+Format: <code>completeOrder NUMBER</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Order queue is the right dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Completes first n orders.</p>
+</li>
+<li>
+<p>The number cannot be more than the total orders in order queue.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>completeOrder 1</code><br>
+Deletes the first order in the order queue.</p>
+</li>
+<li>
+<p><code>completeOrder 5</code><br>
+Deletes the first five orders in the order queue,it there are at least five orders there.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-an-order-order-queue-code-deleteorder-code"><a class="link" href="#deleting-an-order-order-queue-code-deleteorder-code">Deleting an order (order queue): <code>deleteOrder</code></a></h3>
+<div class="paragraph">
+<p>Deletes the specified order from the order book.<br>
+Format: <code>deleteOrder INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Order book is the left dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the order in the order queue at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete 1</code><br>
+Deletes the 1st order in the order queue.</p>
+</li>
+<li>
+<p><code>delete 3</code><br>
+Deletes the 3rd order in the order queue.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="priorityqueue-feature"><a class="link" href="#priorityqueue-feature">PriorityQueue feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
+<div class="paragraph">
+<p>Each order has a priority level. When adding an order to the order queue, the priority of the order is
+determined by three things, total price of the order, distance to the address and order&#8217;s customer&#8217;s past order count.</p>
+</div>
+<div class="paragraph">
+<p>There is no need for user to manually give priority to the order.</p>
+</div>
+<div class="paragraph">
+<p>Orders are added to a priority queue, implemented using Java ArrayList class with comparator. Orders are queued inside the queue based on their priority level.</p>
+</div>
+<div class="paragraph">
+<p>Current equation to calculate priority is that priority(integer) = 10 * price - 25 * distance + 5 * count.</p>
+</div>
+<div class="paragraph">
+<p>As you can see from the diagram below, these are the interactions among the components during an “addOrder” command. The Model component raises an AddressBookChangedEvent to update the content of the AddressBook.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/figure3.5.1a.png" alt="figure3.5.1a" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>(To be updated)</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-determination-of-priority-level"><a class="link" href="#aspect-determination-of-priority-level">Aspect: Determination of priority level</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1:</strong> Determined based on the customers' past order count.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+<li>
+<p>Cons: It is difficult to decide which number should be the benchmark for a customer to given priority.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2(current choice)::</strong> Determined based different things such as past order count, distance, price of the order.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: It would be a fairer system to decide priority.</p>
+</li>
+<li>
+<p>Cons: It might requires additional judging system to decide priority level. Difficult to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-data-structure-to-store-data-for-orders"><a class="link" href="#aspect-data-structure-to-store-data-for-orders">Aspect: Data structure to store data for orders</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1:</strong> Use Java PriorityQueue</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Efficient to add an order, complexity is lower than alternative 2.</p>
+</li>
+<li>
+<p>Cons: Difficult to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Use an ArrayList of Order objects and comparable interface.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement, quick to access and edit orders.</p>
+</li>
+<li>
+<p>Cons: When number of orders gets larger, the time taken would be slower as internally the priority queue is maintained
+by sorting (MergeSort).
+=== Path feature
+==== Current Implementation</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Path command uses similar implementation as Select command.</p>
+</div>
+<div class="paragraph">
+<p>As you can see from the diagram below, these are the interactions among the components during an “Path” command. The Model component raises a PersonPanelPathChangedEvent.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/figure3.8.1a.png" alt="figure3.8.1a" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The diagram below shows how EventsCenter reacts to the event.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/figure3.8.1b.png" alt="figure3.8.1b" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>To implement this feature, there are some modifications to the existing Model component and UI component.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2018-04-12 18:46:16 UTC
+</div>
+</div>
+</body>
+</html>
