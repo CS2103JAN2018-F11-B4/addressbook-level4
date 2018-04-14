@@ -181,7 +181,7 @@ Format: <code>help</code></p>
 <div class="paragraph">
 <p>Adds an order to the order book, which keeps track all the orders received+
 Alias: <code>a</code><br>
-Format: <code>add n/NAME p/PHONE_NUMBER a/ADDRESS o/FOOD_ORDER [h/HALAL] [v/VEGETARIAN] [t/TAG]&#8230;&#8203;</code></p>
+Format: <code>add n/NAME p/PHONE_NUMBER a/ADDRESS f/FOOD_ORDER [h/HALAL] [v/VEGETARIAN] [t/TAG]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -226,12 +226,7 @@ First letter for every word of FOOD_ORDER must be capitalised
 </td>
 <td class="content">
 Current Menu:
-Chicken Rice
-Curry Chicken
-Chicken Chop
-Ban Mian
-Ice Milo
-Coffee
+Chicken Rice, Curry Chicken, Chicken Chop, Ban Mian, Ice Milo, Coffee
 </td>
 </tr>
 </table>
@@ -242,16 +237,16 @@ Coffee
 <div class="ulist">
 <ul>
 <li>
-<p><code>add n/John Doe p/98765432  a/John street, block 123, #01-01 o/Chicken rice h/HALAL v/VEGETARIAN</code></p>
+<p><code>add n/John Doe p/98765432  a/John street, block 123, #01-01 f/Chicken rice h/HALAL v/VEGETARIAN</code></p>
 </li>
 <li>
-<p><code>add n/Betsy Crowe t/friend a/Newgate Prison p/1234567 t/criminal o/Chicken chop h/HALAL</code></p>
+<p><code>add n/Betsy Crowe t/friend a/Newgate Prison p/1234567 t/criminal f/Chicken chop h/HALAL</code></p>
 </li>
 <li>
-<p><code>a n/John Doe p/98765432  a/John street, block 123, #01-01 o/Chicken rice h/HALAL v/VEGETARIAN</code></p>
+<p><code>a n/John Doe p/98765432  a/John street, block 123, #01-01 f/Chicken rice h/HALAL v/VEGETARIAN</code></p>
 </li>
 <li>
-<p><code>a n/Betsy Crowe t/friend a/Newgate Prison p/1234567 t/criminal o/Chicken chop h/HALAL</code></p>
+<p><code>a n/Betsy Crowe t/friend a/Newgate Prison p/1234567 t/criminal f/Chicken chop h/HALAL</code></p>
 </li>
 </ul>
 </div>
@@ -280,7 +275,7 @@ Format: <code>list</code></p>
 <div class="paragraph">
 <p>Edits an existing order in the order book.<br>
 Alias: <code>e</code><br>
-Format: <code>edit INDEX [n/NAME] [p/PHONE] [a/ADDRESS] [t/FOOD_ORDER] [h/HALAL] [v/VEGETARIAN] [t/TAG]&#8230;&#8203;</code></p>
+Format: <code>edit INDEX [n/NAME] [p/PHONE] [a/ADDRESS] [f/FOOD_ORDER] [h/HALAL] [v/VEGETARIAN] [t/TAG]&#8230;&#8203;</code></p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -967,7 +962,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-14 04:52:05 UTC
+Last updated 2018-04-14 05:13:06 UTC
 </div>
 </div>
 </body>
