@@ -857,7 +857,58 @@ There is no need to save manually.</p>
 <h3 id="count-the-number-of-orders-a-customer-has-placed-in-the-past"><a class="link" href="#count-the-number-of-orders-a-customer-has-placed-in-the-past">3.18. Count the number of orders a customer has placed in the past</a></h3>
 <div class="paragraph">
 <p>The statistics of customers will be stored in the hard disk as an XML file.
-When a customer places an order, it accumulates to the number of his/her past orders.</p>
+When a customer places an order, it accumulates (add 1) to the number of his/her past orders.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Initially no order has been placed so the output XML file is empty.</p>
+</li>
+<li>
+<p><code>add n/Wu Hao p/91111111 f/Chicken Rice a/NUS</code><br>
+The customer with phone number "91111111" has accumulated 1 order.<br>
+The result will be updated and stored in the XML file.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/user1.png" alt="user1" width="800">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add n/Zequn p/92222222 f/Chicken Rice a/NUS</code><br>
+Another customer with a different phone number "92222222" has accumulated 1 order.<br>
+The result will be updated and stored in the XML file.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/user2.png" alt="user2" width="800">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete 1</code><br>
+<code>add n/Wu Hao p/91111111 f/Chicken Rice a/NUS</code><br>
+<code>delete 1</code><br>
+<code>add n/Wu Hao p/91111111 f/Chicken Rice a/NUS</code><br>
+Now the first customer with phone number "91111111" has placed 3 orders in total in the past.<br>
+The results are reflected in the XML file.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/user3.png" alt="user3" width="800">
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -964,7 +1015,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-14 06:53:25 UTC
+Last updated 2018-04-14 08:03:01 UTC
 </div>
 </div>
 </body>

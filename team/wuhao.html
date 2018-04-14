@@ -146,9 +146,62 @@
 <h3 id="count-the-number-of-orders-a-customer-has-placed-in-the-past"><a class="link" href="#count-the-number-of-orders-a-customer-has-placed-in-the-past">Count the number of orders a customer has placed in the past</a></h3>
 <div class="paragraph">
 <p>The statistics of customers will be stored in the hard disk as an XML file.
-When a customer places an order, it accumulates to the number of his/her past orders.
-=== Check a customer&#8217;s current count of past orders <code>Coming in v2.0</code></p>
+When a customer places an order, it accumulates (add 1) to the number of his/her past orders.</p>
 </div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Initially no order has been placed so the output XML file is empty.</p>
+</li>
+<li>
+<p><code>add n/Wu Hao p/91111111 f/Chicken Rice a/NUS</code><br>
+The customer with phone number "91111111" has accumulated 1 order.<br>
+The result will be updated and stored in the XML file.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/user1.png" alt="user1" width="800">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add n/Zequn p/92222222 f/Chicken Rice a/NUS</code><br>
+Another customer with a different phone number "92222222" has accumulated 1 order.<br>
+The result will be updated and stored in the XML file.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/user2.png" alt="user2" width="800">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete 1</code><br>
+<code>add n/Wu Hao p/91111111 f/Chicken Rice a/NUS</code><br>
+<code>delete 1</code><br>
+<code>add n/Wu Hao p/91111111 f/Chicken Rice a/NUS</code><br>
+Now the first customer with phone number "91111111" has placed 3 orders in total in the past.<br>
+The results are reflected in the XML file.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/user3.png" alt="user3" width="800">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="check-a-customer-s-current-count-of-past-orders-code-coming-in-v2-0-code"><a class="link" href="#check-a-customer-s-current-count-of-past-orders-code-coming-in-v2-0-code">Check a customer&#8217;s current count of past orders <code>Coming in v2.0</code></a></h3>
 <div class="paragraph">
 <p>Gets the number of past orders given a customers phone number.<br>
 Format: <code>count PHONE</code></p>
@@ -178,80 +231,7 @@ Format: <code>count PHONE</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-an-order-order-book-code-add-code"><a class="link" href="#adding-an-order-order-book-code-add-code">Adding an order (order book): <code>add</code></a></h3>
-<div class="paragraph">
-<p>Adds an order to the order book, which keeps track all the orders received+
-Alias: <code>a</code><br>
-Format: <code>add n/NAME p/PHONE_NUMBER a/ADDRESS f/FOOD_ORDER [h/HALAL] [v/VEGETARIAN] [t/TAG]&#8230;&#8203;</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Order book is the left dispalyed panel.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-A person can have any number of tags (including 0)
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-First letter for every word of FOOD_ORDER must be capitalised
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Current Menu:
-Chicken Rice, Curry Chicken, Chicken Chop, Ban Mian, Ice Milo, Coffee
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>add n/John Doe p/98765432  a/John street, block 123, #01-01 f/Chicken rice h/HALAL v/VEGETARIAN</code></p>
-</li>
-<li>
-<p><code>add n/Betsy Crowe t/friend a/Newgate Prison p/1234567 t/friends f/Chicken chop h/HALAL</code></p>
-</li>
-<li>
-<p><code>a n/John Doe p/98765432  a/John street, block 123, #01-01 f/Chicken rice h/HALAL v/VEGETARIAN</code></p>
-</li>
-<li>
-<p><code>a n/Betsy Crowe t/friend a/Newgate Prison p/1234567 t/friends f/Chicken chop h/HALAL</code>
-=== Identify loyal customer by past orders count and give discounts <code>Coming in v2.0</code></p>
-</li>
-</ul>
-</div>
+<h3 id="identify-loyal-customer-by-past-orders-count-and-give-discounts-code-coming-in-v2-0-code"><a class="link" href="#identify-loyal-customer-by-past-orders-count-and-give-discounts-code-coming-in-v2-0-code">Identify loyal customer by past orders count and give discounts <code>Coming in v2.0</code></a></h3>
 <div class="paragraph">
 <p>When a customer&#8217;s past orders count has been accumulated to 3/5/7/9 (numbers determined by restaurants).<br>
 Messages will be shown to remind restaurants to give the customer discount on the current order.</p>
@@ -388,7 +368,7 @@ Messages will be shown to remind restaurants to give the customer discount on th
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-14 06:53:25 UTC
+Last updated 2018-04-14 08:03:01 UTC
 </div>
 </div>
 </body>
