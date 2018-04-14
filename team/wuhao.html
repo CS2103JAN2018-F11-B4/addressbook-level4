@@ -178,7 +178,80 @@ Format: <code>count PHONE</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="identify-loyal-customer-by-past-orders-count-and-give-discounts-code-coming-in-v2-0-code"><a class="link" href="#identify-loyal-customer-by-past-orders-count-and-give-discounts-code-coming-in-v2-0-code">Identify loyal customer by past orders count and give discounts <code>Coming in v2.0</code></a></h3>
+<h3 id="adding-an-order-order-book-code-add-code"><a class="link" href="#adding-an-order-order-book-code-add-code">Adding an order (order book): <code>add</code></a></h3>
+<div class="paragraph">
+<p>Adds an order to the order book, which keeps track all the orders received+
+Alias: <code>a</code><br>
+Format: <code>add n/NAME p/PHONE_NUMBER a/ADDRESS f/FOOD_ORDER [h/HALAL] [v/VEGETARIAN] [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Order book is the left dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+A person can have any number of tags (including 0)
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+First letter for every word of FOOD_ORDER must be capitalised
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Current Menu:
+Chicken Rice, Curry Chicken, Chicken Chop, Ban Mian, Ice Milo, Coffee
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add n/John Doe p/98765432  a/John street, block 123, #01-01 f/Chicken rice h/HALAL v/VEGETARIAN</code></p>
+</li>
+<li>
+<p><code>add n/Betsy Crowe t/friend a/Newgate Prison p/1234567 t/friends f/Chicken chop h/HALAL</code></p>
+</li>
+<li>
+<p><code>a n/John Doe p/98765432  a/John street, block 123, #01-01 f/Chicken rice h/HALAL v/VEGETARIAN</code></p>
+</li>
+<li>
+<p><code>a n/Betsy Crowe t/friend a/Newgate Prison p/1234567 t/friends f/Chicken chop h/HALAL</code>
+=== Identify loyal customer by past orders count and give discounts <code>Coming in v2.0</code></p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p>When a customer&#8217;s past orders count has been accumulated to 3/5/7/9 (numbers determined by restaurants).<br>
 Messages will be shown to remind restaurants to give the customer discount on the current order.</p>
@@ -315,7 +388,7 @@ Messages will be shown to remind restaurants to give the customer discount on th
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-14 05:13:06 UTC
+Last updated 2018-04-14 06:23:29 UTC
 </div>
 </div>
 </body>
