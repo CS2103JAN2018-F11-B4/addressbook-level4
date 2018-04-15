@@ -147,17 +147,19 @@ user can roughly estimate how long does it take to deliver the food.</p>
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="adding-an-order-order-queue-code-addorder-code"><a class="link" href="#adding-an-order-order-queue-code-addorder-code">Adding an order (order queue): <code>addOrder</code></a></h3>
+<h3 id="process-an-order-add-to-the-processing-queue-code-process-code-since-v1-5"><a class="link" href="#process-an-order-add-to-the-processing-queue-code-process-code-since-v1-5">Process an order (add to the processing queue): <code>process</code> (Since v1.5)</a></h3>
 <div class="paragraph">
-<p>Adds an order from order book to the order queue in order for processing
-Format: `addOrder o/FOOD_ORDER a/ADDRESS $/PRICE dis/DISTANCE c/PAST_ORDER_COUNT des/DESCRIPTION</p>
+<p>You can now process an existing order from the order book to the processing queue, indicating that the order now in being cooked.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>process INDEX</code> or <code>ps INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Order queue is the right displayed panel.</p>
+<p>You can use <code>ps INDEX</code> for faster input.</p>
 </li>
 </ul>
 </div>
@@ -168,16 +170,58 @@ Format: `addOrder o/FOOD_ORDER a/ADDRESS $/PRICE dis/DISTANCE c/PAST_ORDER_COUNT
 <div class="ulist">
 <ul>
 <li>
-<p>All fields are required, including description. If no description needed, leave it empty.</p>
+<p>Processing queue is the right dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Processing queue has a max capacity(default size is 5), to represents the ability of the restaurants to preparing
+orders(ie number of chefs, number of cookers, etc). Therefore, once the processing queue is full, no more order can be
+processed until some orders are cooked.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Things to take note</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Index must be valid, meaning it can only be a positive integer that is no bigger than the total orders in the order book now.</p>
 </li>
 <li>
-<p>Price is in terms of dollar(only positive interger), Distance is terms of kilometer(only positive interger).</p>
+<p>One order in the order book cannot be processed twice.</p>
 </li>
 <li>
-<p>Display of an order in the order queue is simplified, showing only food, address and description given.</p>
+<p>Once a valid command is entered, the selected order would be added to the processing queue and the original order in the order book will be labelled as processed.</p>
 </li>
 <li>
-<p>The order queue is a priority queue, priority is determined by input price, distance and past order count.</p>
+<p>If user manually remove 'Processed' tag from an order with tag 'Cooked' or 'Delivering' or 'Delivered', then further
+process commands would not add the order to the processing queue again.</p>
+</li>
+<li>
+<p>Processed orders in the order book(left panel) would sink below than unprocessed orders. If you think order disappears in the order book after type
+process command, try to scroll down below unprocessed orders to see it.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Display of an order in the order queue is simplified, showing only food, address and inception time.</p>
+</li>
+<li>
+<p>The processing queue is a normal queue without any ordering.</p>
 </li>
 </ul>
 </div>
@@ -190,8 +234,7 @@ Format: `addOrder o/FOOD_ORDER a/ADDRESS $/PRICE dis/DISTANCE c/PAST_ORDER_COUNT
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Distance can be found using Path command.
-Past order count can be found using count command(in v2.0).
+User could user lazier version <code>processNext</code> command, to avoiding trouble of entering INDEX
 </td>
 </tr>
 </table>
@@ -199,22 +242,481 @@ Past order count can be found using count command(in v2.0).
 <div class="paragraph">
 <p>Examples:</p>
 </div>
+<div class="paragraph">
+<p>Example scenario 1:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>add o/Chicken rice a/John street, block 123, #01-01 $/3 dis/5 c/0 des/Chili sauce required</code></p>
+<p>There is only one order in the order book. To process the first order, we enter</p>
 </li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&gt;&gt; <code>process</code> or <code>ps</code></p>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p><code>add a/Newgate Prison o/Chicken chop $/5 dis/5 c/0 des/with noodles</code></p>
+<p>we get feedback message saying that the index is required.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Process_1.png" alt="UG Process 1" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>After that, we enter correct command</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&gt;&gt; <code>process 1</code> or <code>ps 1</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We can see the result below. The order is added to the processing queue and the original order
+is labelled "Processed".</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Process_2.png" alt="UG Process 2" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p>Example scenario 2:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>After scenario 1, we add more orders to the order book. Now there are several order in the order book. Notice that the
+order Chicken Chop, which is processed in scenario 1, now is ranked below all unprocessed orders.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Process_3.png" alt="UG Process 3" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Now we enter command</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&gt;&gt; <code>process 2</code> or <code>ps 2</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We can see the result below. The order "Ice Milo" is added to the processing queue and the original order
+is labelled "Processed". Now Ice Milo also goes below unprocessed orders.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Process_4.png" alt="UG Process 4" width="790">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="process-the-next-unprocessed-order-add-to-the-processing-queue-code-processnext-code-since-v1-5"><a class="link" href="#process-the-next-unprocessed-order-add-to-the-processing-queue-code-processnext-code-since-v1-5">Process the next unprocessed order(add to the processing queue): <code>processNext</code> (Since v1.5)</a></h3>
+<div class="paragraph">
+<p>To save time, you can process an existing unprocessed order from the order book to the processing queue, without
+worrying about the index. ProcessNext would automatically find the first unprocessed order in the current shown list.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>processNext</code> or <code>pN</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>You can use <code>pN</code> for faster input. Note the capital 'N'.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="completing-an-or-multiple-order-s-order-queue-code-completeorder-code"><a class="link" href="#completing-an-or-multiple-order-s-order-queue-code-completeorder-code">Completing an or multiple order(s) (order queue): <code>completeOrder</code></a></h3>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Processing queue is the right dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Processing queue has a max capacity(default size is 5), to represents the ability of the restaurants to preparing
+orders(ie number of chefs, number of cookers, etc). Therefore, once the processing queue is full, no more order can be
+processed until some orders are cooked.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="paragraph">
-<p>Completes first n orders from the order queue, n is the NUMBER inputted.<br>
-Format: <code>completeOrder NUMBER</code></p>
+<p>Things to take note</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If all orders in the shown list have been processed, message "All Order have been processed".</p>
+</li>
+<li>
+<p>One order in the order book cannot be processed twice.</p>
+</li>
+<li>
+<p>If user manually remove 'Processed' tag from an order with tag 'Cooked' or 'Delivering' or 'Delivered', then further
+process commands would not add the order to the processing queue again.</p>
+</li>
+<li>
+<p>Processed orders in the order book(left panel) would sink below than unprocessed orders. If you think order disappears in the order book after type
+process command, try to scroll down below unprocessed orders to see it.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+User could user even lazier version <code>processMore NUMBER</code> command, to avoiding trouble of entering
+<code>processNext</code> multiple time
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="paragraph">
+<p>Example scenario 1:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Now our orders are these.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Process_4.png" alt="UG Process 4" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To process the next order, which is 'Curry Chicken' in this case, we simply enter</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&gt;&gt; <code>processNext</code> or <code>pN</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We can see the result below. The 'Curry Chicken' order is added to the processing queue and the original order
+is labelled "Processed".</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Process_5.png" alt="UG Process 5" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p>Example scenario 2:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>After scenario 1, we realize Ice Milo is finished preparing. We use  Notice it goes all the way to the top of the list, as a
+remainder for you to send out the delivery man.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>For details of order&#8217;s ranking in order book, please refer to tag command section)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Process_6.png" alt="UG Process 6" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Now the next order to be processed is Ban Mian, which is at position 2. We enter</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&gt;&gt; <code>processNext</code> or <code>pN</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We can see the result below. The order "Ban Mian" is added to the processing queue and the original order
+is labelled as "Processed".</p>
+</li>
+<li>
+<p>ProcessNext skips the first processed order.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Process_7.png" alt="UG Process 7" width="790">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="process-the-next-n-unprocessed-orders-add-to-processing-queue-code-processmore-code-since-v1-5"><a class="link" href="#process-the-next-n-unprocessed-orders-add-to-processing-queue-code-processmore-code-since-v1-5">Process the next n unprocessed orders(add to processing queue): <code>processMore</code>(Since v1.5)</a></h3>
+<div class="paragraph">
+<p>Now you can process the next n unprocessed order at one simpler command.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>processMore NUMBER</code> or <code>pM NUMBER</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>You can use <code>pM</code> for faster input. Note the capital 'M'.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Processing queue is the right dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Processing queue has a max capacity(default size is 5), to represents the ability of the restaurants to preparing
+orders(ie number of chefs, number of cookers, etc). Therefore, once the processing queue is full, no more order can be
+processed until some orders are cooked.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Things to take note</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Number must be a positive integer</p>
+</li>
+<li>
+<p>There is no upper bound to the number, as once the all the orders are processed or the processing queue is full,
+the adding and labelling would stop. However, we advise user <strong>not to enter absurdly large number to avoid unusual
+ behavior</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="paragraph">
+<p>Example scenario 1:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Now our orders are these. There are five orders waiting to be processed.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Process_8.png" alt="UG Process 8" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To process all five orders, we simply enter</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&gt;&gt; <code>processMore 5</code> or <code>pM 5</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We can see the result below. All five orders are added to the processing queue and the original orders
+are labelled "Processed".</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Process_9.png" alt="UG Process 9" width="790">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="complete-an-order-delete-form-processing-queue-code-completeone-code-since-v1-5"><a class="link" href="#complete-an-order-delete-form-processing-queue-code-completeone-code-since-v1-5">Complete an order (delete form processing queue): <code>completeOne</code> (Since v1.5)</a></h3>
+<div class="paragraph">
+<p>After processing an order and the food is now ready to be delivered, you can use complete order command to remove the
+order from the processing queue, and label the original order in the order book as 'Cooked'.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>completeOne INDEX</code> or <code>cOne INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>You can use <code>cOne INDEX</code> for faster input. Note the capital 'O'.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Processing queue is the right dispalyed panel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Things to take note</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Completes and removes the order in the processing queue at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The original order in the order book would be labelled as 'Cooked' and jumps to the top of the list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, 4, 5, as the default full capacity of the processing queue is 5.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="paragraph">
+<p>Example scenario 1:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Now our orders are these. There are three orders be processing. Suppose food 'Curry Chicken' has finished cooking.
+Notice it is currently second in the processing queue.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Complete_1.png" alt="UG Complete 1" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To complete it, we simply enter</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&gt;&gt; <code>completeOne 2</code> or <code>cOne 2</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We can see the result below. 'Curry Chicken' is deleted from the processing queue and the original order
+is labelled "Cooked". Notice the 'Cooked' 'Curry Chicken' would go above unprocessed and processing orders to remind
+the user to send out delivery man.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Complete_2.png" alt="UG Complete 2" width="790">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="complete-n-orders-delete-form-processing-queue-code-completemore-code"><a class="link" href="#complete-n-orders-delete-form-processing-queue-code-completemore-code">Complete n orders (delete form processing queue): <code>completeMore</code></a></h3>
+<div class="paragraph">
+<p>Similar to completeOne command, now multiple orders can be finished and removed from the processing
+queue at the same time. Completes first n orders from the order queue, n is the NUMBER inputted.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>completeOrder NUMBER</code> or <code>cMore NUMBER</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>You can use <code>cM NUMBER</code> for faster input. Note the capital 'M'.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -238,7 +740,7 @@ Format: <code>completeOrder NUMBER</code></p>
 <p>The number cannot be more than the total orders in order queue.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, 4, 5, as the default full capacity of the processing queue is 5.</p>
 </li>
 </ul>
 </div>
@@ -247,24 +749,67 @@ Format: <code>completeOrder NUMBER</code></p>
 <div class="paragraph">
 <p>Examples:</p>
 </div>
+<div class="paragraph">
+<p>Example scenario 1:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>completeOrder 1</code><br>
-Deletes the first order in the order queue.</p>
-</li>
-<li>
-<p><code>completeOrder 5</code><br>
-Deletes the first five orders in the order queue,it there are at least five orders there.</p>
+<p>From previous example, there are still two orders be processing. Suppose food 'Chicken Chop' and
+'Ban Mian' have finished cooking at the same time. We would now wants to complete both using one command.</p>
 </li>
 </ul>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Complete_2.png" alt="UG Complete 2" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To do so, we simply enter</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&gt;&gt; <code>completeMore 2</code> or <code>cM 2</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We can see the result below. Both 'Chicken Chop' and 'Ban Mian' are deleted from the processing queue and
+the original orders are labelled "Cooked". Notice the 'Cooked' 'Chicken Chop' and 'Ban Mian' would go above
+unprocessed and processing orders to remind the user to send out delivery man.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Complete_3.png" alt="UG Complete 3" width="790">
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="deleting-an-order-order-queue-code-deleteorder-code"><a class="link" href="#deleting-an-order-order-queue-code-deleteorder-code">Deleting an order (order queue): <code>deleteOrder</code></a></h3>
+<h3 id="tag-an-order-order-book-code-tag-code-since-v1-5"><a class="link" href="#tag-an-order-order-book-code-tag-code-since-v1-5">Tag an order (order book): <code>tag</code> (Since v1.5)</a></h3>
 <div class="paragraph">
-<p>Deletes the specified order from the order book.<br>
-Format: <code>deleteOrder INDEX</code></p>
+<p>Add an tag to an existing order in the order book.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>edit INDEX tagWord</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Adds 'Delivering', 'Delivered' and see its position in the order book. Use
+edit command to clear tags.
+</td>
+</tr>
+</table>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -282,10 +827,255 @@ Format: <code>deleteOrder INDEX</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>Deletes the order in the order queue at the specified <code>INDEX</code>.</p>
+<p>Only 'Delivering', 'Delivered' would be recognized for ordering. ('delivering''delivered' would not affect
+an order&#8217;s position)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Edits the order at the specified <code>INDEX</code>. The index refers to the index number shown in the current shown list.
+The index <strong>must be a positive integer</strong> 1, 2, 3, ..</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>Existing order will be updated with input tagWord.</p>
+</li>
+<li>
+<p>Different from edit command, adding of tags is cumulative.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Label orders with tag 'Delivering','Delivering' would change their position in the order book.</p>
+</li>
+<li>
+<p>Once a order is processed, it will go below unprocessed orders, so that there is no need for user to scroll all
+the way down to process newly-added unprocessed order.</p>
+</li>
+<li>
+<p><strong>Do not tag an order as 'Processed' as process commands would do the job.</strong></p>
+</li>
+<li>
+<p>Once an order has been cooked, the order would be labelled as 'Cooked', and it will go to the top of the order book
+to remind user to send out delivery man.</p>
+</li>
+<li>
+<p><strong>Do not tag an order as 'Cooked' as complete commands would do the job.</strong></p>
+</li>
+<li>
+<p>When an order is tagged as 'Delivering', it would go above all the cooked orders.</p>
+</li>
+<li>
+<p>Finally, when an order is tagged as 'Delivered', it would go all the way to the bottom as the order
+is consider closed.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="paragraph">
+<p>Example scenario 1:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We have five orders being processed.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Tag_1.png" alt="UG Tag 1" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Enter completeMore order command to complete first three orders, 'Curry Chicken' 'Ban Mian' and 'Chicken Chop'</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&gt;&gt; <code>cM 3</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Now these three orders are labelled as</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Tag_2.png" alt="UG Tag 2" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We send out delivery man for Chicken Chop and tag it as 'Delivering'</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&gt;&gt; <code>tag 3 Delivering</code> Notice no t/ needed</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Tag_4.png" alt="UG Tag 4" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We can see it jumps to the top of the order book.</p>
+</li>
+<li>
+<p>Finally when it is delivered, we enter</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&gt;&gt; <code>tag 1 Delivered</code> to push it to the bottom</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Tag_3.png" alt="UG Tag 3" width="790">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="load-a-web-page-code-load-url-code-since-v1-5"><a class="link" href="#load-a-web-page-code-load-url-code-since-v1-5">Load a web page: <code>load url</code> (Since v1.5)</a></h3>
+<div class="paragraph">
+<p>You can try to load a web page in the browser panel, which is the middle window in the main window.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>load url</code> or <code>ld url</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Url is the web page link, for instance: <a href="https://www.google.com.sg" class="bare">https://www.google.com.sg</a>, <a href="https://www.youtube.com" class="bare">https://www.youtube.com</a></p>
+</li>
+<li>
+<p>Note that user needs to enter 'https://' before the normal web link entered in web browser.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Unlike normal web browser, there is no go back previous page function and no open in new tab function.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>This is only an small extra function. As a result, <strong>the function would not be guaranteed to work and
+the behaviour of the function may vary from user to user</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Example</p>
+</div>
+<div class="paragraph">
+<p>Example scenario 1:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You want to load google search page to find out something.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Load_1.png" alt="UG Load 1" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Enter</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&gt;&gt; <code>load <a href="https://www.google.com.sg" class="bare">https://www.google.com.sg</a></code> or <code>ld <a href="https://www.google.com.sg" class="bare">https://www.google.com.sg</a></code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Then you can see</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Load_2.png" alt="UG Load 2" width="790">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-path-of-an-order-order-book-code-path-code-since-v1-3"><a class="link" href="#find-path-of-an-order-order-book-code-path-code-since-v1-3">Find Path of an order (order book): <code>path</code> (Since V1.3)</a></h3>
+<div class="paragraph">
+<p>Shows path to the order&#8217;s address which is identified by the index number used in the last listing.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>path INDEX</code> or <code>p INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>See setOwnAddress command would be avaiable in v2.0, now default own address is 'NUS'.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Shows path to the order’s address which is identified by the index number used in the current show order book list,
+using Google Map.</p>
+</li>
+<li>
+<p>The index refers to the index number of the order.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 </ul>
 </div>
@@ -297,14 +1087,36 @@ Format: <code>deleteOrder INDEX</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete 1</code><br>
-Deletes the 1st order in the order queue.</p>
-</li>
-<li>
-<p><code>delete 3</code><br>
-Deletes the 3rd order in the order queue.</p>
+<p>Now we have five orders. We wants to know how far away is the '311, Clementi Ave 2'</p>
 </li>
 </ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Path_1.png" alt="UG Path 1" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Enter</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&gt;&gt; <code>path 1</code> or <code>p 1</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We can see from the google Map, it is 2.3 kilometers away from our own address(NUS at default).</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UG_Path_2.png" alt="UG Path 2" width="790">
+</div>
 </div>
 </div>
 </div>
@@ -448,7 +1260,7 @@ by sorting (MergeSort).
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 10:10:36 UTC
+Last updated 2018-04-15 10:14:36 UTC
 </div>
 </div>
 </body>
