@@ -262,23 +262,17 @@ Chicken Rice, Curry Chicken, Chicken Chop, Ban Mian, Ice Milo, Coffee
 </div>
 </div>
 <div class="paragraph">
-<p>To achieve this enhancement, the following modifications are made for Model and Storage components.</p>
+<p>To achieve this enhancement, the following modifications are made for Model and Storage components. For Model components, besides AddressBook, UserPref and CustomerStats, now ModelManager has an additional Menu class. It consists a Data field with all the available food provided by the restaurant. In the Storage component, there is an additional MenuStorage interface and it is implemented by a XmlMenuStorage class to read the XML file on local machine.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/menu_fig_2.png" alt="menu fig 2" width="800">
 </div>
 </div>
-<div class="paragraph">
-<p>As the diagram shown above, besides AddressBook, UserPref and CustomerStats, now ModelManager has an additional Menu class. It consists a Data field with all the available food provided by the restaurant.</p>
-</div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/menu_fig_3.png" alt="menu fig 3" width="800">
 </div>
-</div>
-<div class="paragraph">
-<p>In the Storage component, there is an additional MenuStorage interface and it is implemented by a XmlMenuStorage class to read the XML file on local machine.</p>
 </div>
 </div>
 <div class="sect3">
@@ -308,18 +302,12 @@ Chicken Rice, Curry Chicken, Chicken Chop, Ban Mian, Ice Milo, Coffee
 <p>Pros: It is easy to retrieve the price for each dishes.</p>
 </li>
 <li>
-<p>Cons: When the user key in the names of dishes, conversions are required to build a Dish object from the name of the dish. In this case, price of the dish is also required in order to build a Dish object, hence, we need another HashMap to store the prices of every dish.</p>
+<p>Cons: When the user key in the names of dishes, conversions are required to build a Dish object from the name of the dish(String). More information is required e.g. prices of all dishes.
+===== Aspect: Restriction for ordering</p>
 </li>
 </ul>
 </div>
 </li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-restriction-for-ordering"><a class="link" href="#aspect-restriction-for-ordering">Aspect: Restriction for ordering</a></h5>
-<div class="ulist">
-<ul>
 <li>
 <p><strong>Alternative 1 (current choice):</strong> Allow user to input the names for dishes and drinks</p>
 <div class="ulist">
@@ -338,43 +326,10 @@ Chicken Rice, Curry Chicken, Chicken Chop, Ban Mian, Ice Milo, Coffee
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: It can be efficient if the user is familiar with the index reference for dishes and drinks, as the user only need to key in the indexes.</p>
+<p>Pros: It can be efficient if the user is familiar with the index reference for all food, as the user can just key in indexes.</p>
 </li>
 <li>
 <p>Cons: It requires a index reference. Extra work needs to be done for creating and maintaining the index reference.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-maintaining-the-menu-coming-in-v2-0"><a class="link" href="#aspect-maintaining-the-menu-coming-in-v2-0">Aspect: Maintaining the menu （Coming in v2.0)</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (proposed):</strong> Use lazy deletion.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to implement.</p>
-</li>
-<li>
-<p>Cons: It may take a lot of memory space if there are a lot of dishes updated.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Delete the dish object.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Save memory space</p>
-</li>
-<li>
-<p>Cons: While adding back those pre-existing dishes, more work need to be done.</p>
 </li>
 </ul>
 </div>
@@ -389,7 +344,7 @@ Chicken Rice, Curry Chicken, Chicken Chop, Ban Mian, Ice Milo, Coffee
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 08:07:00 UTC
+Last updated 2018-04-15 09:07:52 UTC
 </div>
 </div>
 </body>
