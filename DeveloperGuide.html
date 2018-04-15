@@ -1041,64 +1041,80 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="sect3">
 <h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.5.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>All the dishes can be created as an object and then be stored in an additional local database. The data can be kept in a local XmlMenuStorage file.</p>
+<p>All the dishes can be created as an object and then be stored in an additional local database. The data can be kept in a local XmlMenu file.</p>
 </div>
 <div class="paragraph">
-<p>The data file consists of all the available dishes and drinks provided by the restaurant. Customers can only order those provided. In the case when anything which is not provided by the restaurant but is ordered by customers, exceptions will be thrown. Notification will be given to inform the user that customers should not order this particular dish or drink.</p>
+<p>The data file consists of all the available food and drinks provided by the restaurant. Customers can only order those provided. In the case when anything which is not provided by the restaurant but is ordered by customers, exceptions will be thrown. Notification will be given to inform the user that customers should not order this particular food or drink.</p>
 </div>
 <div class="paragraph">
-<p>Users will be able to update the data file by adding or deleting dishes objects inside the database.</p>
+<p>In this case, HashMap is used. While the name of the food is the key, and the Dish object is the value.</p>
 </div>
 <div class="paragraph">
-<p>As you can see from the diagram below, these are the interactions among the components during an “add” command. After the Model component raises an AddressBookChangedEvent to update the content of the AddressBook, it raises another CustomerStatsChangedEvent to update the current customer’s order count.</p>
+<p>In the upcoming Delivery v2.0, users will be able to update the data file by adding or deleting dishes objects inside the database.</p>
+</div>
+<div class="paragraph">
+<p>As you can see from the diagram below, these are the interactions among the components during an “add” command. During the adding process, the availability of the food ordered will be checked. Order will only be added when ordered food is available.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/figure3.5.1a.png" alt="figure3.5.1a" width="800">
+<img src="images/menu_fig_1.png" alt="menu fig 1" width="800">
 </div>
 </div>
 <div class="paragraph">
-<p>(To be updated)</p>
-</div>
-<div class="paragraph">
-<p>The diagram below shows how EventsCenter reacts to the event. It finds the customer in the database using the phoneNumber provided and add 1 to the corresponding numOfOrders value.</p>
+<p>To achieve this enhancement, the following modifications are made for Model and Storage components.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/figure3.5.1b.png" alt="figure3.5.1b" width="800">
+<img src="images/menu_fig_2.png" alt="menu fig 2" width="800">
 </div>
 </div>
 <div class="paragraph">
-<p>(To be updated)</p>
-</div>
-<div class="paragraph">
-<p>To implement this feature, there are some modifications to the existing Model component and Storage component to support the additional data structure.</p>
+<p>As the diagram shown above, besides AddressBook, UserPref and CustomerStats, now ModelManager has an additional Menu class. It consists a Data field with all the available food provided by the restaurant.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/menuStorage.png" alt="menuStorage" width="800">
+<img src="images/menu_fig_3.png" alt="menu fig 3" width="800">
 </div>
 </div>
 <div class="paragraph">
-<p>(To be updated)</p>
-</div>
-<div class="paragraph">
-<p>As the diagram shown above, besides AddressBook and UserPref, now ModelManager has an additional CustomerStats class. It consists a Data field which has many Phone numbers and numOfOrders counters. Phone numbers and the numOfOrders counters are 1-1 mapped and each pair represent one customer that has placed at least one order before.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/figure3.5.1d.png" alt="figure3.5.1d" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>(To be updated)</p>
-</div>
-<div class="paragraph">
-<p>In the Storage component, there is an additional CustomerStatsStorage interface and it is implemented by a XmlCustomerStatsStorage class to read and write the XML file on local machine.</p>
+<p>In the Storage component, there is an additional MenuStorage interface and it is implemented by a XmlMenuStorage class to read the XML file on local machine.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.5.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-data-structure-to-store-menu"><a class="link" href="#aspect-data-structure-to-store-menu">Aspect: Data structure to store menu</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Use a HashMap. String (names of dishes) will be the key, Dishes will be the value.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Efficient to search for a given key and decide whether the dish is available.</p>
+</li>
+<li>
+<p>Cons: User may key in wrongly for names of dishes.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Use a HashMap. Dishes will be the key, prices will be the value.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: It is easy to retrieve the price for each dishes.</p>
+</li>
+<li>
+<p>Cons: When the user key in the names of dishes, conversions are required to build a Dish object from the name of the dish. In this case, price of the dish is also required in order to build a Dish object, hence, we need another HashMap to store the prices of every dish.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 <div class="sect4">
 <h5 id="aspect-restriction-for-ordering"><a class="link" href="#aspect-restriction-for-ordering">Aspect: Restriction for ordering</a></h5>
 <div class="ulist">
@@ -1108,7 +1124,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: user need not to have a index reference.</p>
+<p>Pros: No extra information is required e.g. a index reference.</p>
 </li>
 <li>
 <p>Cons: It could be time-consuming for typing all the names. There might be typos which make dishes can not be recognised.</p>
@@ -1121,10 +1137,10 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Easy to implement.</p>
+<p>Pros: It can be efficient if the user is familiar with the index reference for dishes and drinks, as the user only need to key in the indexes.</p>
 </li>
 <li>
-<p>Cons: User needs a index reference. Work needs to be done while maintaining the index reference.</p>
+<p>Cons: It requires a index reference. Extra work needs to be done for creating and maintaining the index reference.</p>
 </li>
 </ul>
 </div>
@@ -1133,7 +1149,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect4">
-<h5 id="aspect-maintaining-the-menu"><a class="link" href="#aspect-maintaining-the-menu">Aspect: Maintaining the menu</a></h5>
+<h5 id="aspect-maintaining-the-menu-coming-in-v2-0"><a class="link" href="#aspect-maintaining-the-menu-coming-in-v2-0">Aspect: Maintaining the menu （Coming in v2.0)</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1157,40 +1173,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <p>Pros: Save memory space</p>
 </li>
 <li>
-<p>Cons: While adding back those pre-existing dishes, more work need to be done by programmer.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-data-structure-to-store-menu"><a class="link" href="#aspect-data-structure-to-store-menu">Aspect: Data structure to store menu</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Use a HashMap. String will be the key, Dishes will be the value.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Efficient to search for a given key and decide whether the dish is available.</p>
-</li>
-<li>
-<p>Cons: User may key in wrongly for names of dishes.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Use a HashMap. Dishes will be the key, prices will be the value.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: It is easy to retrieve the price for each dishes.</p>
-</li>
-<li>
-<p>Cons: It could be time-consuming for typing all the names. There might be typos which make dishes can not be recognised.</p>
+<p>Cons: While adding back those pre-existing dishes, more work need to be done.</p>
 </li>
 </ul>
 </div>
@@ -3134,7 +3117,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 06:51:45 UTC
+Last updated 2018-04-15 08:07:00 UTC
 </div>
 </div>
 </body>
