@@ -108,6 +108,7 @@
 <li><a href="#launch-and-shutdown">H.1. Launch and Shutdown</a></li>
 <li><a href="#deleting-a-person">H.2. Deleting a person</a></li>
 <li><a href="#saving-data">H.3. Saving data</a></li>
+<li><a href="#counting-past-orders">H.4. Counting past orders</a></li>
 </ul>
 </li>
 </ul>
@@ -3269,6 +3270,38 @@ Expected: Similar to previous.</p>
 </li>
 </ol>
 </div>
+</div>
+<div class="sect2">
+<h3 id="counting-past-orders"><a class="link" href="#counting-past-orders">H.4. Counting past orders</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Counting customers' past orders based on phone numbers</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Test case: <code>add n/Wu Hao p/91111111 f/Chicken Rice a/NUS</code><br>
+Expected: The customer with phone number "91111111" has accumulated 1 order.<br>
+The result can be found in /data/customerstats.xml</p>
+</li>
+<li>
+<p>Test case: (continued) <code>add n/Zequn p/92222222 f/Chicken Rice a/NUS</code><br>
+Expected: Another customer with a different phone number "92222222" has accumulated 1 order.<br>
+The result will be updated and reflected in /data/customerstats.xml</p>
+</li>
+<li>
+<p>Test case: (continued)<code>clear</code><br>
+<code>add n/Wu Hao p/91111111 f/Chicken Rice a/NUS</code><br>
+<code>clear</code><br>
+<code>add n/Wu Hao p/91111111 f/Chicken Rice a/NUS</code><br>
+Expected: Now the first customer with phone number "91111111" has placed 3 orders in total in the past.<br>
+The results are reflected in /data/customerstats.xml</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
 <div class="paragraph">
 <p><em>{ more test cases &#8230;&#8203; }</em></p>
 </div>
@@ -3278,7 +3311,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 13:04:05 UTC
+Last updated 2018-04-15 14:03:27 UTC
 </div>
 </div>
 </body>
