@@ -51,10 +51,9 @@
 <li><a href="#menu-feature">3.5. Menu feature</a></li>
 <li><a href="#processingqueue-feature">3.6. ProcessingQueue feature</a></li>
 <li><a href="#task-object">3.7. Task Object</a></li>
-<li><a href="#tasklist">3.8. TaskList</a></li>
-<li><a href="#processordercommand">3.9. ProcessOrderCommand</a></li>
-<li><a href="#completeordercommand">3.10. CompleteOrderCommand</a></li>
-<li><a href="#path-feature">3.11. Path feature</a></li>
+<li><a href="#processordercommand">3.8. ProcessOrderCommand</a></li>
+<li><a href="#completeordercommand">3.9. CompleteOrderCommand</a></li>
+<li><a href="#path-feature">3.10. Path feature</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -1294,23 +1293,21 @@ are zero)</p>
 <p>Pros: Makes process command much simpler</p>
 </li>
 <li>
-<p>Cons: Unused code such as Price class, Distance class and Count class.</p>
+<p>Cons: Unused code such as Price class, Distance class and Count class.
+=== TaskList</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="tasklist"><a class="link" href="#tasklist">3.8. TaskList</a></h3>
 <div class="paragraph">
 <p>TaskList is a ordered list of Task objects. It is used to store the task objects and perform operations on them.</p>
 </div>
+</div>
+</div>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.8.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.7.3. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Below is the code for TaskList and UniquePersonList. The implementation of TaskList mimics that of the
 UniquePersonList.</p>
@@ -1369,7 +1366,7 @@ by sorting (MergeSort). The GUI would hang for a short while before display resu
 </div>
 </div>
 <div class="sect3">
-<h4 id="storage-of-task-object-and-tasklist"><a class="link" href="#storage-of-task-object-and-tasklist">3.8.2. Storage of Task object and TaskList</a></h4>
+<h4 id="storage-of-task-object-and-tasklist"><a class="link" href="#storage-of-task-object-and-tasklist">3.7.4. Storage of Task object and TaskList</a></h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1406,7 +1403,7 @@ Additional method are needed to for existing save/load functions.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="processordercommand"><a class="link" href="#processordercommand">3.9. ProcessOrderCommand</a></h3>
+<h3 id="processordercommand"><a class="link" href="#processordercommand">3.8. ProcessOrderCommand</a></h3>
 <div class="paragraph">
 <p>Below is a sequence diagram when 'process 1' is entered.</p>
 </div>
@@ -1432,7 +1429,7 @@ before it returns a CommandResult object back to logic manager.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="completeordercommand"><a class="link" href="#completeordercommand">3.10. CompleteOrderCommand</a></h3>
+<h3 id="completeordercommand"><a class="link" href="#completeordercommand">3.9. CompleteOrderCommand</a></h3>
 <div class="paragraph">
 <p>Below is a UML diagram when 'completeOne 1' is entered.</p>
 </div>
@@ -1446,9 +1443,9 @@ before it returns a CommandResult object back to logic manager.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="path-feature"><a class="link" href="#path-feature">3.11. Path feature</a></h3>
+<h3 id="path-feature"><a class="link" href="#path-feature">3.10. Path feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.11.1. Current Implementation</a></h4>
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.10.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Path command uses similar implementation as Select command.</p>
 </div>
@@ -3432,7 +3429,7 @@ The results are reflected in /data/customerstats.xml
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 14:40:16 UTC
+Last updated 2018-04-15 15:16:19 UTC
 </div>
 </div>
 </body>
