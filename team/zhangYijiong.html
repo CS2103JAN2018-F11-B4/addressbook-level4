@@ -44,11 +44,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement</strong>: added <strong>an separate order priority queue to process order</strong> including addOrder, deleteOrder, and completeOrder commands</p>
+<p><strong>Major enhancement</strong>: added <strong>an separate order processing queue to process order</strong> including processOrder,
+processNextOrder, processMoreOrder, completeOneOrder, completeMoreOrder and tag commands.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: User is able to input orders from order book into the order queue, for them to decide which order needs to be processed first.</p>
+<p>What it does: User is able to input orders from order book into the processing queue, indicating that the order is
+being processed(cooking).</p>
 </li>
 <li>
 <p>What can it do in the future: When an order is completed from the queue, the total price of the order could automatically
@@ -56,8 +58,9 @@ be added into the daily revenue, for additional accounting purposes.</p>
 </li>
 <li>
 <p>Justification: This feature improves the product significantly, as firstly it separates the recording and processing of orders.
-When an order is delivered, it is removed from the order queue, but still remains in order book, in case there is any future usage. Secondly, users (restaurant owners) need not to worry
-about which order should they do first, as the priority of each order is determined internally.</p>
+When an order has been cooked, it is removed from the processing queue, but still remains in order book, in case
+there is any future usage for reference. Secondly, the owner can have a clearer idea about what is the status of
+his kitchens are doing, so that he can manage them more efficiently.</p>
 </li>
 <li>
 <p>Highlights: This enhancement does not affect commands such as "add", "delete" or others on the order book.</p>
@@ -80,6 +83,24 @@ user can roughly estimate how long does it take to deliver the food.</p>
 </div>
 </li>
 <li>
+<p><strong>Minor enhancement</strong>: added an inner ordering for person(Order) object in UniquePersonList(Order book).</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What is does: When an order is labelled with different tag, its position in the order book would change.
+For instance, the order labelled 'Cooked' would jump to the front of the list to remind restaurant owner to quickly
+send out delivery man. Another example would be that orders labelled with 'Delivered' would sink to the
+bottom of the list so that the owner would not to worry about them.</p>
+</li>
+<li>
+<p>Justification: If there is no such implementation, the new orders would always be below the older orders and
+it might be very troublesome to scroll down to see them, especially when the number of orders gets bigger.
+Besides, the different priority for order in different status can improve restaurants' efficiency.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
 <p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103JAN2018-F11-B4/main/blob/master/collated/functional/ZhangYijiong.md">Functional code</a>] [<a href="https://github.com/CS2103JAN2018-F11-B4/main/blob/master/collated/test/ZhangYijiong.md">Test code</a>]</p>
 </li>
 <li>
@@ -97,11 +118,21 @@ user can roughly estimate how long does it take to deliver the food.</p>
 </div>
 </li>
 <li>
+<p>Small Enhancement</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Added a load web page function which loads web page in the browser panel.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
 <p>Documentation:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Updated contents of the User Guide and the Developer Guide</p>
+<p>Updated contents of the User Guide and the Developer Guide frequently.</p>
 </li>
 </ul>
 </div>
@@ -915,7 +946,7 @@ is consider closed.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Now these three orders are labelled as</p>
+<p>Now these three orders are labelled as 'Cooked'</p>
 </li>
 </ul>
 </div>
@@ -1135,68 +1166,161 @@ using Google Map.</p>
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="priorityqueue-feature"><a class="link" href="#priorityqueue-feature">PriorityQueue feature</a></h3>
-<div class="sect3">
-<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
+<h3 id="processingqueue-feature"><a class="link" href="#processingqueue-feature">ProcessingQueue feature</a></h3>
 <div class="paragraph">
-<p>Each order has a priority level. When adding an order to the order queue, the priority of the order is
-determined by three things, total price of the order, distance to the address and order&#8217;s customer&#8217;s past order count.</p>
+<p>Processing queue gives restaurants owner a way to manage their kitchen and further differentiates different state of an
+order.</p>
 </div>
 <div class="paragraph">
-<p>There is no need for user to manually give priority to the order.</p>
+<p>In the code, processing queue is represented by TaskList, which is an observable, ordered list comprises of Task object.</p>
 </div>
 <div class="paragraph">
-<p>Orders are added to a priority queue, implemented using Java ArrayList class with comparator. Orders are queued inside the queue based on their priority level.</p>
+<p><strong>Task list and processing queue are referring to the same thing, as Task list is just the name used in the code. Its
+intention is to serve as a processing queue.</strong></p>
 </div>
 <div class="paragraph">
-<p>Current equation to calculate priority is that priority(integer) = 10 * price - 25 * distance + 5 * count.</p>
-</div>
-<div class="paragraph">
-<p>As you can see from the diagram below, these are the interactions among the components during an “addOrder” command. The Model component raises an AddressBookChangedEvent to update the content of the AddressBook.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/figure3.5.1a.png" alt="figure3.5.1a" width="800">
-</div>
-</div>
+<p><strong>For clarification, in the code, the order object is represented using Person class, meaning although the functionality
+ of the class changes, names of the original classes are retained. This applies to most of the classes. Therefore,
+ order and person, order book and person list are essentially the same thing, only the names are wrong. For the following
+ section, terms order and order book are used.</strong></p>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-determination-of-priority-level"><a class="link" href="#aspect-determination-of-priority-level">Aspect: Determination of priority level</a></h5>
+<h5 id="aspect-implementation-of-processing-queue"><a class="link" href="#aspect-implementation-of-processing-queue">Aspect: Implementation of Processing Queue</a></h5>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1:</strong> Determined based on the customers' past order count.</p>
+<p><strong>Alternative 1:</strong> Create another list of order, using existing Order class.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: Easy to implement.</p>
 </li>
 <li>
-<p>Cons: It is difficult to decide which number should be the benchmark for a customer to given priority.</p>
+<p>Cons: It gets complicated when you want to process an order, as you could move the original order object to the
+processing queue or you could create a duplicate order object.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2(current choice)::</strong> Determined based different things such as past order count, distance, price of the order.</p>
+<p><strong>Alternative 2(current choice)::</strong> Create a brand-new class to represent order being processed.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: It would be a fairer system to decide priority.</p>
+<p>Pros: Difficult to implement</p>
 </li>
 <li>
-<p>Cons: It might requires additional judging system to decide priority level. Difficult to implement.</p>
+<p>Cons: Reduces potential conflicts between existing commands and new commands</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="task-object"><a class="link" href="#task-object">Task Object</a></h3>
+<div class="paragraph">
+<p>The word "Task" is used because there exist a class named "Order" in Person package.
+Thus, "Task" is used to avoid any confusion if it were to named as "order". Besides, orders needed to be cooked can be
+seen a task to finish in some sense.However, this could create other possible
+confusions.</p>
+</div>
+<div class="paragraph">
+<p>The Task object represents an received order being cooked, as such there exist an one-to-one link between order
+in order book and task in taskList.
+and stores information same</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
+<div class="paragraph">
+<p>The following class diagram illustrates the structure of a Task object.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Task_Class.png" alt="Task Class" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p>However, the actual construction of the task in commands omits attributes price, distance, past order count.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-construction-of-a-task-object"><a class="link" href="#aspect-construction-of-a-task-object">Aspect: Construction of a task object</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1(rejected):</strong> Constructed based order details(food), address, price of the order,
+distance from the owner, the customers' past order count.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: It was originally design so that the particular task gets certain priority attached to it, and is able to
+jump queue.</p>
+</li>
+<li>
+<p>Cons: It is fairer just to cook order based on the inception time of the order. In addition, the process command needs to
+take in lots of input, not efficient.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2(current choice)::</strong> Construct using an existing order object (adopt order, address, other attributes
+are zero)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Makes process command much simpler</p>
+</li>
+<li>
+<p>Cons: Unused code such as Price class, Distance class and Count class.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tasklist"><a class="link" href="#tasklist">TaskList</a></h3>
+<div class="paragraph">
+<p>TaskList is a ordered list of Task objects. It is used to store the task objects and perform operations on them.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current Implementation</a></h4>
+<div class="paragraph">
+<p>Below is the code for TaskList and UniquePersonList. The implementation of TaskList mimics that of the
+UniquePersonList.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">TaskList</span> <span class="directive">implements</span> <span class="predefined-type">Iterable</span>&lt;Task&gt; {
+    <span class="comment">// ......</span>
+    <span class="directive">private</span> <span class="directive">final</span> ObservableList&lt;Task&gt; internalList = FXCollections.observableArrayList();
+    <span class="comment">// ......</span>
+    }</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">UniquePersonList</span> <span class="directive">implements</span> <span class="predefined-type">Iterable</span>&lt;Person&gt; {
+    <span class="comment">// ......</span>
+    <span class="directive">private</span> <span class="directive">final</span> ObservableList&lt;Person&gt; internalList = FXCollections.observableArrayList();
+    <span class="comment">// ......</span>
+}</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="aspect-data-structure-to-store-data-for-orders"><a class="link" href="#aspect-data-structure-to-store-data-for-orders">Aspect: Data structure to store data for orders</a></h5>
+<h5 id="aspect-implementation-of-ordering-of-task-objects-in-task-list"><a class="link" href="#aspect-implementation-of-ordering-of-task-objects-in-task-list">Aspect: Implementation of ordering of task objects in task list</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1204,7 +1328,7 @@ determined by three things, total price of the order, distance to the address an
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Efficient to add an order, complexity is lower than alternative 2.</p>
+<p>Pros: Efficient to add a task, complexity is lower than alternative 2.</p>
 </li>
 <li>
 <p>Cons: Difficult to implement.</p>
@@ -1221,14 +1345,92 @@ determined by three things, total price of the order, distance to the address an
 </li>
 <li>
 <p>Cons: When number of orders gets larger, the time taken would be slower as internally the priority queue is maintained
-by sorting (MergeSort).
-=== Path feature
-==== Current Implementation</p>
+by sorting (MergeSort). The GUI would hang for a short while before display results.</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="storage-of-task-object-and-tasklist"><a class="link" href="#storage-of-task-object-and-tasklist">Storage of Task object and TaskList</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1(current choice): </strong>Store Task objects together in the default XML storage file addressbook.xml.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros Only 1 storage file is needed. The storage manager thus only needs to refer to one storage,
+except for customerStats.xml.</p>
+</li>
+<li>
+<p>Cons Any changes to the Person or Task will affect the storage of both the Person and Task objects,
+which would significantly increase coupling between the Person and Task classes.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2: </strong>Store Tasks objects in a separate XML file</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easier to manage as two storage are separated.</p>
+</li>
+<li>
+<p>Cons: Difficult to implement.
+Additional method are needed to for existing save/load functions.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="processordercommand"><a class="link" href="#processordercommand">ProcessOrderCommand</a></h3>
+<div class="paragraph">
+<p>Below is a sequence diagram when 'process 1' is entered.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ProcessOrder_Sequence.png" alt="ProcessOrder Sequence" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p>As see from the diagram, when the logic manager receives the input, it would sent it to the AddressBookParser, which decide
+which command the input is trying to access.</p>
+</div>
+<div class="paragraph">
+<p>The keyword 'process' is then identified by the AddressBookParser, following by a instantiation of ProcessOrderCommandParser
+ object to create a ProcessOrderCommand class to interact with model and perform its functionality.</p>
+</div>
+<div class="paragraph">
+<p>ProcessOrderCommand object would call its method execute(), which would make several method calls to update the order book and task list in model,
+before it returns a CommandResult object back to logic manager.</p>
+</div>
+<div class="paragraph">
+<p>As such, the operation "process 1" is carried and the result is shown in the GUI.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="completeordercommand"><a class="link" href="#completeordercommand">CompleteOrderCommand</a></h3>
+<div class="paragraph">
+<p>Below is a UML diagram when 'completeOne 1' is entered.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/CompleteOneOrder_UML.png" alt="CompleteOneOrder UML" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p>The class involved and sequence of method calling is similar to previous ProcessOrderCommand.
+=== Path feature
+==== Current Implementation</p>
 </div>
 <div class="paragraph">
 <p>Path command uses similar implementation as Select command.</p>
@@ -1256,11 +1458,9 @@ by sorting (MergeSort).
 </div>
 </div>
 </div>
-</div>
-</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 10:18:41 UTC
+Last updated 2018-04-15 13:04:05 UTC
 </div>
 </div>
 </body>

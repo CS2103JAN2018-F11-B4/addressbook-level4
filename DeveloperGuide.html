@@ -49,8 +49,12 @@
 <li><a href="#Implementation-Configuration">3.3. Configuration</a></li>
 <li><a href="#customers-orders-count-feature">3.4. Customers’ Orders Count feature</a></li>
 <li><a href="#menu-feature">3.5. Menu feature</a></li>
-<li><a href="#priorityqueue-feature">3.6. PriorityQueue feature</a></li>
-<li><a href="#path-feature">3.7. Path feature</a></li>
+<li><a href="#processingqueue-feature">3.6. ProcessingQueue feature</a></li>
+<li><a href="#task-object">3.7. Task Object</a></li>
+<li><a href="#tasklist">3.8. TaskList</a></li>
+<li><a href="#processordercommand">3.9. ProcessOrderCommand</a></li>
+<li><a href="#completeordercommand">3.10. CompleteOrderCommand</a></li>
+<li><a href="#path-feature">3.11. Path feature</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -1172,68 +1176,161 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="priorityqueue-feature"><a class="link" href="#priorityqueue-feature">3.6. PriorityQueue feature</a></h3>
-<div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.6.1. Current Implementation</a></h4>
+<h3 id="processingqueue-feature"><a class="link" href="#processingqueue-feature">3.6. ProcessingQueue feature</a></h3>
 <div class="paragraph">
-<p>Each order has a priority level. When adding an order to the order queue, the priority of the order is
-determined by three things, total price of the order, distance to the address and order&#8217;s customer&#8217;s past order count.</p>
+<p>Processing queue gives restaurants owner a way to manage their kitchen and further differentiates different state of an
+order.</p>
 </div>
 <div class="paragraph">
-<p>There is no need for user to manually give priority to the order.</p>
+<p>In the code, processing queue is represented by TaskList, which is an observable, ordered list comprises of Task object.</p>
 </div>
 <div class="paragraph">
-<p>Orders are added to a priority queue, implemented using Java ArrayList class with comparator. Orders are queued inside the queue based on their priority level.</p>
+<p><strong>Task list and processing queue are referring to the same thing, as Task list is just the name used in the code. Its
+intention is to serve as a processing queue.</strong></p>
 </div>
 <div class="paragraph">
-<p>Current equation to calculate priority is that priority(integer) = 10 * price - 25 * distance + 5 * count.</p>
-</div>
-<div class="paragraph">
-<p>As you can see from the diagram below, these are the interactions among the components during an “addOrder” command. The Model component raises an AddressBookChangedEvent to update the content of the AddressBook.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/figure3.5.1a.png" alt="figure3.5.1a" width="800">
-</div>
-</div>
+<p><strong>For clarification, in the code, the order object is represented using Person class, meaning although the functionality
+ of the class changes, names of the original classes are retained. This applies to most of the classes. Therefore,
+ order and person, order book and person list are essentially the same thing, only the names are wrong. For the following
+ section, terms order and order book are used.</strong></p>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.6.2. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.6.1. Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-determination-of-priority-level"><a class="link" href="#aspect-determination-of-priority-level">Aspect: Determination of priority level</a></h5>
+<h5 id="aspect-implementation-of-processing-queue"><a class="link" href="#aspect-implementation-of-processing-queue">Aspect: Implementation of Processing Queue</a></h5>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1:</strong> Determined based on the customers' past order count.</p>
+<p><strong>Alternative 1:</strong> Create another list of order, using existing Order class.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: Easy to implement.</p>
 </li>
 <li>
-<p>Cons: It is difficult to decide which number should be the benchmark for a customer to given priority.</p>
+<p>Cons: It gets complicated when you want to process an order, as you could move the original order object to the
+processing queue or you could create a duplicate order object.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2(current choice)::</strong> Determined based different things such as past order count, distance, price of the order.</p>
+<p><strong>Alternative 2(current choice)::</strong> Create a brand-new class to represent order being processed.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: It would be a fairer system to decide priority.</p>
+<p>Pros: Difficult to implement</p>
 </li>
 <li>
-<p>Cons: It might requires additional judging system to decide priority level. Difficult to implement.</p>
+<p>Cons: Reduces potential conflicts between existing commands and new commands</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="task-object"><a class="link" href="#task-object">3.7. Task Object</a></h3>
+<div class="paragraph">
+<p>The word "Task" is used because there exist a class named "Order" in Person package.
+Thus, "Task" is used to avoid any confusion if it were to named as "order". Besides, orders needed to be cooked can be
+seen a task to finish in some sense.However, this could create other possible
+confusions.</p>
+</div>
+<div class="paragraph">
+<p>The Task object represents an received order being cooked, as such there exist an one-to-one link between order
+in order book and task in taskList.
+and stores information same</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.7.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The following class diagram illustrates the structure of a Task object.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Task_Class.png" alt="Task Class" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p>However, the actual construction of the task in commands omits attributes price, distance, past order count.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.7.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-construction-of-a-task-object"><a class="link" href="#aspect-construction-of-a-task-object">Aspect: Construction of a task object</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1(rejected):</strong> Constructed based order details(food), address, price of the order,
+distance from the owner, the customers' past order count.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: It was originally design so that the particular task gets certain priority attached to it, and is able to
+jump queue.</p>
+</li>
+<li>
+<p>Cons: It is fairer just to cook order based on the inception time of the order. In addition, the process command needs to
+take in lots of input, not efficient.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2(current choice)::</strong> Construct using an existing order object (adopt order, address, other attributes
+are zero)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Makes process command much simpler</p>
+</li>
+<li>
+<p>Cons: Unused code such as Price class, Distance class and Count class.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tasklist"><a class="link" href="#tasklist">3.8. TaskList</a></h3>
+<div class="paragraph">
+<p>TaskList is a ordered list of Task objects. It is used to store the task objects and perform operations on them.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.8.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>Below is the code for TaskList and UniquePersonList. The implementation of TaskList mimics that of the
+UniquePersonList.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">TaskList</span> <span class="directive">implements</span> <span class="predefined-type">Iterable</span>&lt;Task&gt; {
+    <span class="comment">// ......</span>
+    <span class="directive">private</span> <span class="directive">final</span> ObservableList&lt;Task&gt; internalList = FXCollections.observableArrayList();
+    <span class="comment">// ......</span>
+    }</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">UniquePersonList</span> <span class="directive">implements</span> <span class="predefined-type">Iterable</span>&lt;Person&gt; {
+    <span class="comment">// ......</span>
+    <span class="directive">private</span> <span class="directive">final</span> ObservableList&lt;Person&gt; internalList = FXCollections.observableArrayList();
+    <span class="comment">// ......</span>
+}</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="aspect-data-structure-to-store-data-for-orders"><a class="link" href="#aspect-data-structure-to-store-data-for-orders">Aspect: Data structure to store data for orders</a></h5>
+<h5 id="aspect-implementation-of-ordering-of-task-objects-in-task-list"><a class="link" href="#aspect-implementation-of-ordering-of-task-objects-in-task-list">Aspect: Implementation of ordering of task objects in task list</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1241,7 +1338,7 @@ determined by three things, total price of the order, distance to the address an
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Efficient to add an order, complexity is lower than alternative 2.</p>
+<p>Pros: Efficient to add a task, complexity is lower than alternative 2.</p>
 </li>
 <li>
 <p>Cons: Difficult to implement.</p>
@@ -1258,20 +1355,96 @@ determined by three things, total price of the order, distance to the address an
 </li>
 <li>
 <p>Cons: When number of orders gets larger, the time taken would be slower as internally the priority queue is maintained
-by sorting (MergeSort).</p>
+by sorting (MergeSort). The GUI would hang for a short while before display results.</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="storage-of-task-object-and-tasklist"><a class="link" href="#storage-of-task-object-and-tasklist">3.8.2. Storage of Task object and TaskList</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1(current choice): </strong>Store Task objects together in the default XML storage file addressbook.xml.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros Only 1 storage file is needed. The storage manager thus only needs to refer to one storage,
+except for customerStats.xml.</p>
+</li>
+<li>
+<p>Cons Any changes to the Person or Task will affect the storage of both the Person and Task objects,
+which would significantly increase coupling between the Person and Task classes.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2: </strong>Store Tasks objects in a separate XML file</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easier to manage as two storage are separated.</p>
+</li>
+<li>
+<p>Cons: Difficult to implement.
+Additional method are needed to for existing save/load functions.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="path-feature"><a class="link" href="#path-feature">3.7. Path feature</a></h3>
+<h3 id="processordercommand"><a class="link" href="#processordercommand">3.9. ProcessOrderCommand</a></h3>
+<div class="paragraph">
+<p>Below is a sequence diagram when 'process 1' is entered.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ProcessOrder_Sequence.png" alt="ProcessOrder Sequence" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p>As see from the diagram, when the logic manager receives the input, it would sent it to the AddressBookParser, which decide
+which command the input is trying to access.</p>
+</div>
+<div class="paragraph">
+<p>The keyword 'process' is then identified by the AddressBookParser, following by a instantiation of ProcessOrderCommandParser
+ object to create a ProcessOrderCommand class to interact with model and perform its functionality.</p>
+</div>
+<div class="paragraph">
+<p>ProcessOrderCommand object would call its method execute(), which would make several method calls to update the order book and task list in model,
+before it returns a CommandResult object back to logic manager.</p>
+</div>
+<div class="paragraph">
+<p>As such, the operation "process 1" is carried and the result is shown in the GUI.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="completeordercommand"><a class="link" href="#completeordercommand">3.10. CompleteOrderCommand</a></h3>
+<div class="paragraph">
+<p>Below is a UML diagram when 'completeOne 1' is entered.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CompleteOneOrder_UML.png" alt="CompleteOneOrder UML" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p>The class involved and sequence of method calling is similar to previous ProcessOrderCommand.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="path-feature"><a class="link" href="#path-feature">3.11. Path feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.7.1. Current Implementation</a></h4>
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.11.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Path command uses similar implementation as Select command.</p>
 </div>
@@ -3105,7 +3278,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 10:18:41 UTC
+Last updated 2018-04-15 13:04:05 UTC
 </div>
 </div>
 </body>
