@@ -106,9 +106,12 @@
 <li><a href="#instructions-for-manual-testing">Appendix H: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">H.1. Launch and Shutdown</a></li>
-<li><a href="#deleting-a-person">H.2. Deleting a person</a></li>
-<li><a href="#saving-data">H.3. Saving data</a></li>
-<li><a href="#counting-past-orders">H.4. Counting past orders</a></li>
+<li><a href="#deleting-an-order">H.2. Deleting an order</a></li>
+<li><a href="#processing-an-order">H.3. Processing an order</a></li>
+<li><a href="#completing-an-order">H.4. Completing an order</a></li>
+<li><a href="#showing-path-to-an-order">H.5. Showing path to an order</a></li>
+<li><a href="#saving-data">H.6. Saving data</a></li>
+<li><a href="#counting-past-orders">H.7. Counting past orders</a></li>
 </ul>
 </li>
 </ul>
@@ -2543,7 +2546,7 @@ When clicking one particular person in the addressbook, the browser on the right
 address using google map.</p>
 </li>
 <li>
-<p>Major enhancement: Implement a priority queue structure to process orders from add method + Create new GUI for add command</p>
+<p>Major enhancement: Implement a processing queue structure to process orders from add method</p>
 </li>
 </ul>
 </div>
@@ -3211,38 +3214,35 @@ Expected: Shows the GUI with a set of sample contacts. The window size may not b
 </li>
 <li>
 <p>Re-launch the app by double-clicking the jar file.<br>
-Expected: The most recent window size and location is retained.</p>
+   Expected: The most recent window size and location is retained.
+=== Adding an order</p>
 </li>
 </ol>
 </div>
 </li>
-</ol>
-</div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="deleting-a-person"><a class="link" href="#deleting-a-person">H.2. Deleting a person</a></h3>
-<div class="olist arabic">
-<ol class="arabic">
 <li>
-<p>Deleting a person while all persons are listed</p>
+<p>Adding an order while there is no order currently</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: List all persons using the <code>list</code> command. Multiple persons in the list.</p>
+<p>Prerequisites: No order in the list.</p>
 </li>
 <li>
-<p>Test case: <code>delete 1</code><br>
-Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.</p>
+<p>Test case: <code>add n/Tom p/98765432 f/Chicken Rice a/1A Kent Ridge Road</code><br>
+Expected: First order in the list is the order added. Details of the added order shown in the status message.
+Timestamp in the status bar is updated.</p>
 </li>
 <li>
-<p>Test case: <code>delete 0</code><br>
-Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.</p>
+<p>Test case: <code>add n/Tom p/98765432 f/Hamburger a/1A Kent Ridge Road</code><br>
+Expected: Not added. Error details shown in the status message. Status bar remains the same.</p>
 </li>
 <li>
-<p>Other incorrect delete commands to try: <code>delete</code>, <code>delete x</code> (where x is larger than the list size) <em>{give more}</em><br>
+<p>Other incorrect delete commands to try: <code>add n/Tom p/98765432 f/Double Cheeseburger a/1A Kent Ridge Road`</code>,<br>
+  <code>add</code>  <br>
+  <code>add n/Tom p/98765432 f/Chicken Rice</code><br>
+ <code>add n/Tom p/98765432 f/Chicken Rice</code> <br>
+<code>add p/98765432 f/Chicken Rice a/1A Kent Ridge Road</code><br>
+<code>add n/Tom f/Chicken Rice a/1A Kent Ridge Road</code><br>
 Expected: Similar to previous.</p>
 </li>
 </ol>
@@ -3250,12 +3250,135 @@ Expected: Similar to previous.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
+</div>
+<div class="sect2">
+<h3 id="deleting-an-order"><a class="link" href="#deleting-an-order">H.2. Deleting an order</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Deleting an order while all orders are listed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all orders using the <code>list</code> command. Multiple orders in the list.</p>
+</li>
+<li>
+<p>Test case: <code>delete 1</code><br>
+Expected: First order is deleted from the list. Details of the deleted order shown in the status message.
+Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>delete 0</code><br>
+Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Other incorrect delete commands to try: <code>delete</code>, <code>delete x</code> (where x is larger than the list size) <code>delete -1</code>,
+<code>delete dfaf</code>, <code>delete !@#</code> <br>
+  Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">H.3. Saving data</a></h3>
+<h3 id="processing-an-order"><a class="link" href="#processing-an-order">H.3. Processing an order</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Process an existing order at index i, add it to the processing queue on the right and label the
+original order as "Processed"</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: There exist orders in the order book.</p>
+</li>
+<li>
+<p>Test case: <code>process 1</code><br>
+Expected: First order is added to the processing queue on the right. Original order is tagged as "Processed".
+Details of the added order shown in the status message.
+Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>process 0</code><br>
+Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Other incorrect delete commands to try: <code>process</code>, <code>process x</code> (where x is larger than the list size) <code>process -1</code>,
+<code>process dfaf</code>, <code>process !@#</code> <br>
+  Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="completing-an-order"><a class="link" href="#completing-an-order">H.4. Completing an order</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Complete a processed order at index i</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: There exist orders in the processing queue on the right.</p>
+</li>
+<li>
+<p>Test case: <code>completeOne 1</code><br>
+Expected: First order is removed from processing queue on the right. Details of the added order shown in the status message.
+Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>completeOne 0</code><br>
+Expected: No order is removed from the processing queue. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Other incorrect delete commands to try: <code>completeOne `, `completeOne x</code> (where x is larger than the list size) <code>completeOne -1</code>,
+<code>completeOne dfaf</code>, <code>completeOne !@#</code> <br>
+  Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="showing-path-to-an-order"><a class="link" href="#showing-path-to-an-order">H.5. Showing path to an order</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Show path to an unprocessed order at index i of the order book, on the browser panel using google map</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: There exist orders in the processing queue on the right.</p>
+</li>
+<li>
+<p>Test case: <code>path 1</code><br>
+Expected: Window in the middle shows path from own address to order one&#8217;s address using google map.
+Command success message shown in the status message.</p>
+</li>
+<li>
+<p>Test case: <code>path 0</code><br>
+Expected: No google map page shown. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Other incorrect delete commands to try: <code>path `, `path x</code> (where x is larger than the list size) <code>path -1</code>,
+<code>path dfaf</code>, <code>path !@#</code> <br>
+  Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="saving-data"><a class="link" href="#saving-data">H.6. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3272,7 +3395,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="counting-past-orders"><a class="link" href="#counting-past-orders">H.4. Counting past orders</a></h3>
+<h3 id="counting-past-orders"><a class="link" href="#counting-past-orders">H.7. Counting past orders</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3311,7 +3434,7 @@ The results are reflected in /data/customerstats.xml</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-15 14:03:27 UTC
+Last updated 2018-04-15 14:11:58 UTC
 </div>
 </div>
 </body>
